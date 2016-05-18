@@ -19,8 +19,8 @@ library(zCompositions)
 library(ALDEx2)
 library(igraph)
 
-source("../../compositions/CoDaSeq/chunk/codaSeq_functions.R")
-source("../../propr/R/propr-functions.R")
+source("/Users/ggloor/git/CoDaSeq/chunk/codaSeq_functions.R")
+source("/Users/ggloor/git/propr/R/propr-functions.R")
 dev='pdf'
 
 plot=FALSE
@@ -75,7 +75,7 @@ if(plot==TRUE) dev.off()
 
 
 ```{r meanvsvar, ,  message=FALSE, warning=FALSE, echo=TRUE, fig.cap='test', fig.height=4, fig.width=4}
-d <- read.table("../../working_papers/Foxman_rev/code/tongue_vs_cheek.txt",
+d <- read.table("~/git/working_papers/Foxman_rev/code/tongue_vs_cheek.txt",
     header=T, row.names=1)
 
 d.tax <- data.frame(d$tax)
