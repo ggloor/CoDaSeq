@@ -1,0 +1,12 @@
+Package: CoDaSeq
+Type: Package
+Title: Compositional Data Analysis of High Throughput Sequencing
+Version: 0.99.1
+Date: 2016-05-21
+Author: Greg Gloor, Wallace Chan
+Maintainer: Greg Gloor <ggloor@uwo.ca>
+Description: A set of common functions for the analysis of high throughput
+    sequencing count data
+License: file LICENSE
+NeedsCompilation: no
+Packaged: 2016-08-16 15:14:18 UTC; ggloor

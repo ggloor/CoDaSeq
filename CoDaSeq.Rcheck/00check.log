@@ -1,0 +1,135 @@
+* using log directory ‘/Users/ggloor/git/CoDaSeq/CoDaSeq.Rcheck’
+* using R version 3.3.0 (2016-05-03)
+* using platform: x86_64-apple-darwin15.5.0 (64-bit)
+* using session charset: UTF-8
+* checking for file ‘CoDaSeq/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘CoDaSeq’ version ‘0.99.1’
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... OK
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘CoDaSeq’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... NOTE
+Found the following CITATION file in a non-standard place:
+  inst/CITATION.txt
+Most likely ‘inst/CITATION’ should be used instead.
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... OK
+* checking S3 generic/method consistency ... OK
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+codaSeq.filter: no visible binding for global variable ‘tax.vector’
+codaSeq.outlier: no visible global function definition for ‘rgb’
+codaSeq.outlier: no visible global function definition for ‘prcomp’
+codaSeq.outlier: no visible global function definition for ‘median’
+codaSeq.outlier: no visible global function definition for ‘IQR’
+codaSeq.outlier: no visible global function definition for ‘hist’
+codaSeq.outlier: no visible global function definition for ‘boxplot’
+codaSeq.outlier: no visible global function definition for ‘abline’
+propr.aldex.phi: no visible global function definition for
+  ‘getMonteCarloInstances’
+propr.aldex.phi: no visible global function definition for
+  ‘numMCInstances’
+Undefined global functions or variables:
+  IQR abline boxplot getMonteCarloInstances hist median numMCInstances
+  prcomp rgb tax.vector
+Consider adding
+  importFrom("grDevices", "rgb")
+  importFrom("graphics", "abline", "boxplot", "hist")
+  importFrom("stats", "IQR", "median", "prcomp")
+to your NAMESPACE file.
+* checking Rd files ... WARNING
+prepare_Rd: codaSeq.clr.rd:39-40: Dropping empty section \examples
+prepare_Rd: codaSeq.filter.rd:59-60: Dropping empty section \examples
+codaSeq.outlier.rd: non-ASCII input and no declared encoding
+codaSeq.propr.aldex.phi.rd: non-ASCII input and no declared encoding
+codaSeq.propr.phismy.rd: non-ASCII input and no declared encoding
+problems found in ‘codaSeq.outlier.rd’, ‘codaSeq.propr.aldex.phi.rd’, ‘codaSeq.propr.phismy.rd’
+* checking Rd metadata ... OK
+* checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'codaSeq.clr.rd':
+  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’ ‘codaSeq.propr.aldex.phi’
+
+Missing link or links in documentation object 'codaSeq.filter.rd':
+  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’ ‘codaSeq.propr.aldex.phi’
+
+Missing link or links in documentation object 'codaSeq.outlier.rd':
+  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’ ‘codaSeq.propr.aldex.phi’
+
+Missing link or links in documentation object 'codaSeq.propr.aldex.phi.rd':
+  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’
+
+Missing link or links in documentation object 'codaSeq.propr.phismy.rd':
+  ‘codaSeq.rarefy’ ‘codaSeq.propr.aldex.phi’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘codaSeq.rarefy’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... OK
+* checking Rd \usage sections ... WARNING
+Bad \usage lines found in documentation object 'codaSeq.clr':
+      codaSeq.clr <- function(x, samples.by.row=TRUE)
+Bad \usage lines found in documentation object 'codaSeq.filter':
+  codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.prop=0.025,
+    min.occurrence=0, samples.by.row=TRUE)
+Bad \usage lines found in documentation object 'codaSeq.outlier':
+  codaSeq.outlier <- function(x, plot.me=TRUE, col=rgb(1,0,0,0.3))
+Bad \usage lines found in documentation object 'propr.aldex.phi':
+  propr.aldex.phi <- function(aldex.clr)
+Bad \usage lines found in documentation object 'propr.phisym':
+  propr.phismy <- function (X)
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... OK
+* checking examples ... ERROR
+Running examples in ‘CoDaSeq-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: propr.phisym
+> ### Title: Symmetric Phi Statistics
+> ### Aliases: propr.phisym
+> 
+> ### ** Examples
+> 
+> 	N <- 10
+> # Number of observations
+> # Make a data frame with columns a and b roughly proportional
+> # and columns c and d roughly proportional
+>  	X <- data.frame(a=(1:N), b=(1:N) * rnorm(N, 10, 0.1),
++                  	c=(N:1), d=(N:1) * rnorm(N, 10, 1.0))
+>  round(propr.phisym(clr(X)),2)
+Error: could not find function "propr.phisym"
+Execution halted
+* checking PDF version of manual ... OK
+* DONE
+Status: 1 ERROR, 4 WARNINGs, 3 NOTEs
