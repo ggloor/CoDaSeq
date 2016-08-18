@@ -16,15 +16,11 @@
 * checking whether package ‘CoDaSeq’ can be installed ... OK
 * checking installed package size ... OK
 * checking package directory ... OK
-* checking DESCRIPTION meta-information ... NOTE
-Malformed Description field: should contain one or more complete sentences.
+* checking DESCRIPTION meta-information ... OK
 * checking top-level files ... OK
 * checking for left-over files ... OK
 * checking index information ... OK
-* checking package subdirectories ... NOTE
-Found the following CITATION file in a non-standard place:
-  inst/CITATION.txt
-Most likely ‘inst/CITATION’ should be used instead.
+* checking package subdirectories ... OK
 * checking R files for non-ASCII characters ... OK
 * checking R files for syntax errors ... OK
 * checking whether the package can be loaded ... OK
@@ -37,59 +33,19 @@ Most likely ‘inst/CITATION’ should be used instead.
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... NOTE
-codaSeq.filter: no visible binding for global variable ‘tax.vector’
-codaSeq.outlier: no visible global function definition for ‘rgb’
-codaSeq.outlier: no visible global function definition for ‘prcomp’
-codaSeq.outlier: no visible global function definition for ‘median’
-codaSeq.outlier: no visible global function definition for ‘IQR’
-codaSeq.outlier: no visible global function definition for ‘hist’
-codaSeq.outlier: no visible global function definition for ‘boxplot’
-codaSeq.outlier: no visible global function definition for ‘abline’
-propr.aldex.phi: no visible global function definition for
-  ‘getMonteCarloInstances’
-propr.aldex.phi: no visible global function definition for
-  ‘numMCInstances’
-Undefined global functions or variables:
-  IQR abline boxplot getMonteCarloInstances hist median numMCInstances
-  prcomp rgb tax.vector
-Consider adding
-  importFrom("grDevices", "rgb")
-  importFrom("graphics", "abline", "boxplot", "hist")
-  importFrom("stats", "IQR", "median", "prcomp")
-to your NAMESPACE file.
-* checking Rd files ... WARNING
+* checking R code for possible problems ... OK
+* checking Rd files ... NOTE
 prepare_Rd: codaSeq.clr.rd:39-40: Dropping empty section \examples
 prepare_Rd: codaSeq.filter.rd:59-60: Dropping empty section \examples
-codaSeq.outlier.rd: non-ASCII input and no declared encoding
-codaSeq.propr.aldex.phi.rd: non-ASCII input and no declared encoding
-codaSeq.propr.phismy.rd: non-ASCII input and no declared encoding
-problems found in ‘codaSeq.outlier.rd’, ‘codaSeq.propr.aldex.phi.rd’, ‘codaSeq.propr.phismy.rd’
+prepare_Rd: codaSeq.outlier.rd:54-55: Dropping empty section \examples
+prepare_Rd: codaSeq.propr.aldex.phi.rd:14-15: Dropping empty section \arguments
+prepare_Rd: codaSeq.propr.aldex.phi.rd:52-53: Dropping empty section \examples
+prepare_Rd: codaSeq.propr.phisym.rd:18-19: Dropping empty section \value
+prepare_Rd: codaSeq.propr.phisym.rd:33-34: Dropping empty section \examples
+prepare_Rd: codaSeq.rarefy.rd:40-41: Dropping empty section \examples
 * checking Rd metadata ... OK
-* checking Rd cross-references ... WARNING
-Missing link or links in documentation object 'codaSeq.clr.rd':
-  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’ ‘codaSeq.propr.aldex.phi’
-
-Missing link or links in documentation object 'codaSeq.filter.rd':
-  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’ ‘codaSeq.propr.aldex.phi’
-
-Missing link or links in documentation object 'codaSeq.outlier.rd':
-  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’ ‘codaSeq.propr.aldex.phi’
-
-Missing link or links in documentation object 'codaSeq.propr.aldex.phi.rd':
-  ‘codaSeq.rarefy’ ‘codaSeq.propr.phismy’
-
-Missing link or links in documentation object 'codaSeq.propr.phismy.rd':
-  ‘codaSeq.rarefy’ ‘codaSeq.propr.aldex.phi’
-
-See section 'Cross-references' in the 'Writing R Extensions' manual.
-
-* checking for missing documentation entries ... WARNING
-Undocumented code objects:
-  ‘codaSeq.rarefy’
-All user-level objects in a package should have documentation entries.
-See chapter ‘Writing R documentation files’ in the ‘Writing R
-Extensions’ manual.
+* checking Rd cross-references ... OK
+* checking for missing documentation entries ... OK
 * checking for code/documentation mismatches ... OK
 * checking Rd \usage sections ... WARNING
 Bad \usage lines found in documentation object 'codaSeq.clr':
@@ -99,10 +55,12 @@ Bad \usage lines found in documentation object 'codaSeq.filter':
     min.occurrence=0, samples.by.row=TRUE)
 Bad \usage lines found in documentation object 'codaSeq.outlier':
   codaSeq.outlier <- function(x, plot.me=TRUE, col=rgb(1,0,0,0.3))
-Bad \usage lines found in documentation object 'propr.aldex.phi':
-  propr.aldex.phi <- function(aldex.clr)
-Bad \usage lines found in documentation object 'propr.phisym':
-  propr.phismy <- function (X)
+Bad \usage lines found in documentation object 'codaSeq.propr.aldex.phi':
+  codaSeq.propr.aldex.phi <- function(aldex.clr)
+Bad \usage lines found in documentation object 'codaSeq.propr.phisym':
+  codaSeq.propr.phismy <- function (X)
+Bad \usage lines found in documentation object 'codaSeq.rarefy':
+  codaSeq.rarefy <- function(x, n=1000, samples.by.row=TRUE)
 
 Functions with \usage entries need to have the appropriate \alias
 entries, and all their arguments documented.
@@ -111,25 +69,7 @@ See chapter ‘Writing R documentation files’ in the ‘Writing R
 Extensions’ manual.
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
-* checking examples ... ERROR
-Running examples in ‘CoDaSeq-Ex.R’ failed
-The error most likely occurred in:
-
-> ### Name: propr.phisym
-> ### Title: Symmetric Phi Statistics
-> ### Aliases: propr.phisym
-> 
-> ### ** Examples
-> 
-> 	N <- 10
-> # Number of observations
-> # Make a data frame with columns a and b roughly proportional
-> # and columns c and d roughly proportional
->  	X <- data.frame(a=(1:N), b=(1:N) * rnorm(N, 10, 0.1),
-+                  	c=(N:1), d=(N:1) * rnorm(N, 10, 1.0))
->  round(propr.phisym(clr(X)),2)
-Error: could not find function "propr.phisym"
-Execution halted
+* checking examples ... NONE
 * checking PDF version of manual ... OK
 * DONE
-Status: 1 ERROR, 4 WARNINGs, 3 NOTEs
+Status: 1 WARNING, 1 NOTE

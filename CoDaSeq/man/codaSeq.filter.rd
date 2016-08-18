@@ -2,9 +2,9 @@
 \alias{codaSeq.filter}
 \title{Filter compositional dataset for 0 values and abundance.}
 \description{
-	Returns a reduced able of counts where the samples must contain a minimum number of reads, 
+	Returns a reduced able of counts where the samples must contain a minimum number of reads,
 	and OTUs must be found with a minimum abundance in all remaining samples.
-}	
+}
 \usage{
 codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.prop=0.025,
   min.occurrence=0, samples.by.row=TRUE)
@@ -31,7 +31,7 @@ codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.
 }
 \details{
 	Filters min/max.prop first, min.fraction second, min/max.prop third.
-	Requires numeric data only. 
+	Requires numeric data only.
 }
 \value{
 	Returns a dataframe with the following information:
@@ -53,7 +53,7 @@ codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.
 	\code{\link{codaSeq.clr}},
 	\code{\link{codaSeq.outlier}},
 	\code{\link{codaSeq.rarefy}},
-	\code{\link{codaSeq.propr.phismy}},
+	\code{\link{codaSeq.propr.phisym}},
 	\code{\link{codaSeq.propr.aldex.phi}}
 }
 \examples{

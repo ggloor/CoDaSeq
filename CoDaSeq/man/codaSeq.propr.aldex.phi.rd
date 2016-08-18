@@ -1,5 +1,5 @@
-\name{propr.aldex.phi}
-\alias{pror.aldex.phi}
+\name{codaSeq.propr.aldex.phi}
+\alias{codaSeq.propr.aldex.phi}
 \title{Expected Value of Phi From Dirichlet Log-Ratio Distribution}
 \description{
 	Returns data frame of the lower-triangle of symmetrical phi metric,
@@ -9,7 +9,7 @@
 	value is always large.
 }
 \usage{
-propr.aldex.phi <- function(aldex.clr)
+codaSeq.propr.aldex.phi <- function(aldex.clr)
 }
 \arguments{
 }
@@ -21,7 +21,7 @@ propr.aldex.phi <- function(aldex.clr)
 }
 \value{
 	\item{sym.phi}{
-		Calculated sum of phi values through all DIR MR instances.
+		Calculated sum of phi values through all DIR MC instances.
 	}
 	\item{lt}{
 		Indice of correct size.
@@ -37,7 +37,7 @@ propr.aldex.phi <- function(aldex.clr)
 	}
 }
 \references{
-	Please use the citation given by \code{citation(package=“CoDaSeq”)}
+	Please use the citation given by \code{citation(package="CoDaSeq")}
 }
 \author{
 	Greg Gloor, Jean Macklaim, Wallace Chan
@@ -47,7 +47,7 @@ propr.aldex.phi <- function(aldex.clr)
 	\code{\link{codaSeq.filter}},
 	\code{\link{codaSeq.rarefy}},
 	\code{\link{codaSeq.outlier}},
-	\code{\link{codaSeq.propr.phismy}}
+	\code{\link{codaSeq.propr.phisym}}
 }
 \examples{
 }

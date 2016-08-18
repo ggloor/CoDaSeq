@@ -1,1 +1,6 @@
-export(codaSeq.filter, codaSeq.rarefy, codaSeq.clr, codaSeq.outlier)
+importFrom("grDevices", "rgb")
+importFrom("graphics", "abline", "hist", "par", "plot", "points", "boxplot")
+importFrom("stats", "IQR", "median", "prcomp")
+importFrom("ALDEx2", "getMonteCarloInstances", "numMCInstances")
+#export( codaSeq )
+exportPattern( "^codaSeq[.]*" )

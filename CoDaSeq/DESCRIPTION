@@ -5,6 +5,7 @@ Version: 0.99.1
 Date: 2016-05-21
 Author: Greg Gloor, Wallace Chan
 Maintainer: Greg Gloor <ggloor@uwo.ca>
+Depends: ALDEx2
 Description: A set of common functions for the analysis of high throughput
-    sequencing count data
+    sequencing count data.
 License: file LICENSE

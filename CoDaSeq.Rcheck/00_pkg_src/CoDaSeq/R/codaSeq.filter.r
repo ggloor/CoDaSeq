@@ -21,18 +21,17 @@
 # to do add taxonomy filter
 # @ export
 
-
-codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.prop=0.025,
+codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=0.025,
   min.occurrence=0, samples.by.row=TRUE){
   if(samples.by.row==FALSE) data <-x
   if(samples.by.row==TRUE) data <- t(x)
-	  
+
   # todo: check for numeric
   data.0 <- data[,which(apply(data,2,sum) > min.reads)]
 
   d.frac <- apply(data.0, 2, function(x){x/sum(x)})
 #data.1 <- data.0[ (which(apply(d.frac, 1, max) > min.prop & ) & (which(apply(d.frac, 1, max)< max.prop))),]
-  data.1 <- data.0[ (which((apply(d.frac,1,max) > min.prop) & (apply(d.frac,1,max) < max.prop))),] 
+  data.1 <- data.0[ (which((apply(d.frac,1,max) > min.prop) & (apply(d.frac,1,max) < max.prop))),]
   rm(d.frac)
 
   data.2 <- data.frame(data.1[which(apply(data.1, 1,

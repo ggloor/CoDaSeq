@@ -1,0 +1,16 @@
+bibentry(
+	bibtype = "Article",
+	title   = "***It's all relative: analyzing microbiome data as compositions",
+	author  = as.person("Gloor, Gregory B and Wu, Jia Rong and Pawlowsky-Glahn, Vera and Egozcue, Juan Jose"),
+	journal = "*** Annals of Epidemiology, volume 26, issue 5, 322-329",
+	year    = "2016",
+	url     = "*** http://dx.doi.org/10.1016/j.annepidem.2016.03.003"
+)
+bibentry(
+	bibtype = "Article",
+	title   = "***Compositional analysis: a valid approach to analyze microbiome high-throughput sequencing data",
+	author  = as.person("Gloor, Gregory B and Reid, Gregor"),
+	journal = "*** Can. J. Microbiology, volume 26, issue 5, 322-329",
+	year    = "2016",
+	doi     = "*** http://dx.doi.org/10.1139/cjm-2015-0821"
+)
