@@ -47,7 +47,6 @@ codaSeq.propr.aldex.phi <- function(aldex.clr)
 	\code{\link{codaSeq.filter}},
 	\code{\link{codaSeq.rarefy}},
 	\code{\link{codaSeq.outlier}},
-	\code{\link{codaSeq.propr.phisym}}
 }
 \examples{
 }

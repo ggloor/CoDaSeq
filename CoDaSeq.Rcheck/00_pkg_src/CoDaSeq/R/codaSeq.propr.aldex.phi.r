@@ -6,13 +6,13 @@ codaSeq.propr.aldex.phi <- function(aldex.clr){
 	# a median is right out for memory considerations
 
 	# get first value
-	sym.phi <- codaSeq.propr.phisym(t(sapply(getMonteCarloInstances(aldex.clr),
+	sym.phi <- propr.phisym(t(sapply(getMonteCarloInstances(aldex.clr),
 	    function(y){y[,1]})))
 
 	# sum the rest of the values as we proceed through the DIR MC instances
 	for(i in 2:numMCInstances(aldex.clr)){
 		#print(i)
-		sym.phi <- sym.phi + codaSeq.propr.phisym(t(sapply(getMonteCarloInstances(aldex.clr),
+		sym.phi <- sym.phi + propr.phisym(t(sapply(getMonteCarloInstances(aldex.clr),
 		    function(y){y[,i]})))
 	}
 	##### Done ALDEx2 stuff

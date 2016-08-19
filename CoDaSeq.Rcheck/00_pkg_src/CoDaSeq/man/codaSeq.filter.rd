@@ -53,7 +53,6 @@ codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.
 	\code{\link{codaSeq.clr}},
 	\code{\link{codaSeq.outlier}},
 	\code{\link{codaSeq.rarefy}},
-	\code{\link{codaSeq.propr.phisym}},
 	\code{\link{codaSeq.propr.aldex.phi}}
 }
 \examples{

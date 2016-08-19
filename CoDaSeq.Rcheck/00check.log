@@ -35,14 +35,12 @@
 * checking foreign function calls ... OK
 * checking R code for possible problems ... OK
 * checking Rd files ... NOTE
-prepare_Rd: codaSeq.clr.rd:39-40: Dropping empty section \examples
-prepare_Rd: codaSeq.filter.rd:59-60: Dropping empty section \examples
-prepare_Rd: codaSeq.outlier.rd:54-55: Dropping empty section \examples
+prepare_Rd: codaSeq.clr.rd:38-39: Dropping empty section \examples
+prepare_Rd: codaSeq.filter.rd:58-59: Dropping empty section \examples
+prepare_Rd: codaSeq.outlier.rd:53-54: Dropping empty section \examples
 prepare_Rd: codaSeq.propr.aldex.phi.rd:14-15: Dropping empty section \arguments
-prepare_Rd: codaSeq.propr.aldex.phi.rd:52-53: Dropping empty section \examples
-prepare_Rd: codaSeq.propr.phisym.rd:18-19: Dropping empty section \value
-prepare_Rd: codaSeq.propr.phisym.rd:33-34: Dropping empty section \examples
-prepare_Rd: codaSeq.rarefy.rd:40-41: Dropping empty section \examples
+prepare_Rd: codaSeq.propr.aldex.phi.rd:51-52: Dropping empty section \examples
+prepare_Rd: codaSeq.rarefy.rd:39-40: Dropping empty section \examples
 * checking Rd metadata ... OK
 * checking Rd cross-references ... OK
 * checking for missing documentation entries ... OK
@@ -57,8 +55,6 @@ Bad \usage lines found in documentation object 'codaSeq.outlier':
   codaSeq.outlier <- function(x, plot.me=TRUE, col=rgb(1,0,0,0.3))
 Bad \usage lines found in documentation object 'codaSeq.propr.aldex.phi':
   codaSeq.propr.aldex.phi <- function(aldex.clr)
-Bad \usage lines found in documentation object 'codaSeq.propr.phisym':
-  codaSeq.propr.phismy <- function (X)
 Bad \usage lines found in documentation object 'codaSeq.rarefy':
   codaSeq.rarefy <- function(x, n=1000, samples.by.row=TRUE)
 

@@ -5,5 +5,4 @@ codaSeq.outlier         Identifying sample Outliers.
 codaSeq.propr.aldex.phi
                         Expected Value of Phi From Dirichlet Log-Ratio
                         Distribution
-codaSeq.propr.phisym    Symmetric Phi Statistics
 codaSeq.rarefy          Subsample dataset without replacement.

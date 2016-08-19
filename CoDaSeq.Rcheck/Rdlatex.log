@@ -4,8 +4,8 @@ This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format
  restricted \write18 enabled.
 entering extended mode
 
-(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpncZyyZ/Rd2pdf22f3
-3416c801/Rd2.tex
+(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32fa
+56bd8b83/Rd2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 
@@ -73,42 +73,15 @@ No file Rd2.aux.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1phv.fd)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [1{/usr/local/texl
 ive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (52.86096pt too wide) in paragraph at lines 72--77
-[][][]\T1/zi4/m/n/10 codaSeq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 co
-daSeq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/
-ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]
-\T1/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (53.78088pt too wide) in paragraph at lines 88--88
+Overfull \hbox (53.78088pt too wide) in paragraph at lines 87--87
  []\T1/zi4/m/n/10 codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, m
 in.prop=0.001, max.prop=0.025,[] 
-[2]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 143--148
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
+[2] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [3]
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (32.86096pt too wide) in paragraph at lines 209--214
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/
-m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1/
-zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
-[3] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [4]
-Overfull \hbox (7.86096pt too wide) in paragraph at lines 308--313
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.outlier[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m
-/n/10 codaSeq.propr.aldex.phi[][][] 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [5]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 357--362
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
 No file Rd2.ind.
-[6] (./Rd2.aux)
+[5] (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -123,20 +96,20 @@ fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
 ype1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/t
 imes/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8
 a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (6 pages, 76129 bytes).
+Output written on Rd2.pdf (5 pages, 74247 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
-Scanning input file ./Rd2.idx....done (36 entries accepted, 0 rejected).
-Sorting entries....done (198 comparisons).
-Generating output file ./Rd2.ind....done (18 lines written, 4 warnings).
+Scanning input file ./Rd2.idx....done (25 entries accepted, 0 rejected).
+Sorting entries....done (120 comparisons).
+Generating output file ./Rd2.ind....done (15 lines written, 4 warnings).
 Output written in ./Rd2.ind.
 Transcript written in ./Rd2.ilg.
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex)
  restricted \write18 enabled.
 entering extended mode
 
-(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpncZyyZ/Rd2pdf22f3
-3416c801/Rd2.tex
+(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32fa
+56bd8b83/Rd2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 
@@ -204,41 +177,14 @@ Writing index file Rd2.idx
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1phv.fd) (./Rd2.toc)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [1{/usr/local/texl
 ive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (52.86096pt too wide) in paragraph at lines 72--77
-[][][]\T1/zi4/m/n/10 codaSeq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 co
-daSeq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/
-ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]
-\T1/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (53.78088pt too wide) in paragraph at lines 88--88
+Overfull \hbox (53.78088pt too wide) in paragraph at lines 87--87
  []\T1/zi4/m/n/10 codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, m
 in.prop=0.001, max.prop=0.025,[] 
-[2]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 143--148
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
+[2] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [3]
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (32.86096pt too wide) in paragraph at lines 209--214
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/
-m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1/
-zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
-[3] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [4]
-Overfull \hbox (7.86096pt too wide) in paragraph at lines 308--313
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.outlier[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m
-/n/10 codaSeq.propr.aldex.phi[][][] 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [5]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 357--362
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
-(./Rd2.ind [6] [7]) (./Rd2.aux)
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [4] (./Rd2.ind
+[5] [6]) (./Rd2.aux)
 
 Package rerunfilecheck Warning: File `Rd2.out' has changed.
 (rerunfilecheck)                Rerun to get outlines right
@@ -253,20 +199,20 @@ fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
 ype1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/t
 imes/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8
 a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (7 pages, 79831 bytes).
+Output written on Rd2.pdf (6 pages, 77141 bytes).
 Transcript written on Rd2.log.
 This is makeindex, version 2.15 [TeX Live 2015] (kpathsea + Thai support).
-Scanning input file ./Rd2.idx....done (36 entries accepted, 0 rejected).
-Sorting entries....done (198 comparisons).
-Generating output file ./Rd2.ind....done (18 lines written, 4 warnings).
+Scanning input file ./Rd2.idx....done (25 entries accepted, 0 rejected).
+Sorting entries....done (120 comparisons).
+Generating output file ./Rd2.ind....done (15 lines written, 4 warnings).
 Output written in ./Rd2.ind.
 Transcript written in ./Rd2.ilg.
 This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex)
  restricted \write18 enabled.
 entering extended mode
 
-(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpncZyyZ/Rd2pdf22f3
-3416c801/Rd2.tex
+(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32fa
+56bd8b83/Rd2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 
@@ -334,41 +280,14 @@ Writing index file Rd2.idx
 (/usr/local/texlive/2015/texmf-dist/tex/latex/psnfss/t1phv.fd) (./Rd2.toc)
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [1{/usr/local/texl
 ive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (52.86096pt too wide) in paragraph at lines 72--77
-[][][]\T1/zi4/m/n/10 codaSeq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 co
-daSeq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/
-ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]
-\T1/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
-Overfull \hbox (53.78088pt too wide) in paragraph at lines 88--88
+Overfull \hbox (53.78088pt too wide) in paragraph at lines 87--87
  []\T1/zi4/m/n/10 codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, m
 in.prop=0.001, max.prop=0.025,[] 
-[2]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 143--148
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [3]
-Overfull \hbox (32.86096pt too wide) in paragraph at lines 209--214
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/
-m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1/
-zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
+[2] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [3]
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def)
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [4]
-Overfull \hbox (7.86096pt too wide) in paragraph at lines 308--313
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.outlier[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m
-/n/10 codaSeq.propr.aldex.phi[][][] 
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [5]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 357--362
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
-(./Rd2.ind [6] [7]) (./Rd2.aux) )
+(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def) [4] (./Rd2.ind
+[5] [6]) (./Rd2.aux) )
 (see the transcript file for additional information){/usr/local/texlive/2015/te
 xmf-dist/fonts/enc/dvips/base/8r.enc}{/usr/local/texlive/2015/texmf-dist/fonts/
 enc/dvips/inconsolata/i4-t1-0.enc}</usr/local/texlive/2015/texmf-dist/fonts/typ
@@ -377,8 +296,8 @@ fonts/type1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/t
 ype1/urw/times/utmb8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/t
 imes/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmr8
 a.pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (7 pages, 79977 bytes).
+Output written on Rd2.pdf (6 pages, 77323 bytes).
 Transcript written on Rd2.log.
 Saving output to 'CoDaSeq-manual.pdf' ...
 Done
-You may want to clean up by 'rm -rf /var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T//RtmpncZyyZ/Rd2pdf22f33416c801'
+You may want to clean up by 'rm -rf /var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T//RtmpwzHHm9/Rd2pdf32fa56bd8b83'

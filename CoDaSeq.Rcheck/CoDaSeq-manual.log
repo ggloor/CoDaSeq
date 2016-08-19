@@ -1,13 +1,13 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  17 AUG 2016 11:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  19 AUG 2016 09:31
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpncZyyZ/Rd2pdf22f
-33416c801/Rd2.tex
+**/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32f
+a56bd8b83/Rd2.tex
 
-(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpncZyyZ/Rd2pdf22f3
-3416c801/Rd2.tex
+(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32fa
+56bd8b83/Rd2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 
@@ -716,80 +716,41 @@ File: utf8.def 2014/09/29 v1.1m UTF-8 support for inputenc
 
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (52.86096pt too wide) in paragraph at lines 72--77
-[][][]\T1/zi4/m/n/10 codaSeq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 co
-daSeq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/
-ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]
-\T1/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
- []
-
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2014/09/29 v1.1m UTF-8 support for inputenc
 )
-Overfull \hbox (53.78088pt too wide) in paragraph at lines 88--88
+Overfull \hbox (53.78088pt too wide) in paragraph at lines 87--87
  []\T1/zi4/m/n/10 codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, m
 in.prop=0.001, max.prop=0.025,[] 
  []
 
-[2]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 143--148
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
- []
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
+[2] (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2014/09/29 v1.1m UTF-8 support for inputenc
 ) [3]
-Overfull \hbox (32.86096pt too wide) in paragraph at lines 209--214
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/
-m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1/
-zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
- []
-
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2014/09/29 v1.1m UTF-8 support for inputenc
 )
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2014/09/29 v1.1m UTF-8 support for inputenc
-) [4]
-Overfull \hbox (7.86096pt too wide) in paragraph at lines 308--313
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.filter[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.outlier[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m
-/n/10 codaSeq.propr.aldex.phi[][][] 
- []
-
-(/usr/local/texlive/2015/texmf-dist/tex/latex/base/utf8.def
-File: utf8.def 2014/09/29 v1.1m UTF-8 support for inputenc
-) [5]
-Overfull \hbox (37.86096pt too wide) in paragraph at lines 357--362
-[][][]\T1/zi4/m/n/10 codaSeq.clr[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaS
-eq.outlier[][][]\T1/ptm/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.rarefy[][][]\T1/ptm
-/m/n/10 , [][]\T1/zi4/m/n/10 codaSeq.propr.phisym[][][]\T1/ptm/m/n/10 , [][]\T1
-/zi4/m/n/10 codaSeq.propr.aldex.phi[][][] 
- []
-
-(./Rd2.ind [6] [7
+) [4] (./Rd2.ind
+[5] [6
 
 
 ])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 364.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 364.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 319.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 319.
  (./Rd2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 364.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 364.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 319.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 319.
 Package rerunfilecheck Info: File `Rd2.out' has not changed.
-(rerunfilecheck)             Checksum: 192C2674AC40369CAA6AF1D320BC5518;424.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 364.
+(rerunfilecheck)             Checksum: 827DC970B1F8BCD07DAE4D472123EFB4;352.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 319.
  ) 
 Here is how much of TeX's memory you used:
- 6380 strings out of 493089
- 91895 string characters out of 6134842
+ 6367 strings out of 493089
+ 91618 string characters out of 6134842
  172071 words of memory out of 5000000
- 9693 multiletter control sequences out of 15000+600000
+ 9692 multiletter control sequences out of 15000+600000
  35928 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  38i,5n,34p,305b,503s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -801,10 +762,10 @@ xlive/2015/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2015
 /texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dis
 t/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2015/texmf-dist/fonts/ty
 pe1/urw/times/utmri8a.pfb>
-Output written on Rd2.pdf (7 pages, 79977 bytes).
+Output written on Rd2.pdf (6 pages, 77323 bytes).
 PDF statistics:
- 225 PDF objects out of 1000 (max. 8388607)
- 207 compressed objects within 3 object streams
- 68 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 186 PDF objects out of 1000 (max. 8388607)
+ 170 compressed objects within 2 object streams
+ 58 named destinations out of 1000 (max. 500000)
+ 49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
