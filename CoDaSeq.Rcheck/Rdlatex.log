@@ -4,8 +4,8 @@ This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format
  restricted \write18 enabled.
 entering extended mode
 
-(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32fa
-56bd8b83/Rd2.tex
+(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/Rtmppr4JCy/Rd2pdf3487
+7a76fa7b/Rd2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 
@@ -108,8 +108,8 @@ This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format
  restricted \write18 enabled.
 entering extended mode
 
-(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32fa
-56bd8b83/Rd2.tex
+(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/Rtmppr4JCy/Rd2pdf3487
+7a76fa7b/Rd2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 
@@ -211,8 +211,8 @@ This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format
  restricted \write18 enabled.
 entering extended mode
 
-(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/RtmpwzHHm9/Rd2pdf32fa
-56bd8b83/Rd2.tex
+(/private/var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T/Rtmppr4JCy/Rd2pdf3487
+7a76fa7b/Rd2.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 
@@ -300,4 +300,4 @@ Output written on Rd2.pdf (6 pages, 77323 bytes).
 Transcript written on Rd2.log.
 Saving output to 'CoDaSeq-manual.pdf' ...
 Done
-You may want to clean up by 'rm -rf /var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T//RtmpwzHHm9/Rd2pdf32fa56bd8b83'
+You may want to clean up by 'rm -rf /var/folders/ml/kt13wlv11411qwwmwxvbc63m0000gp/T//Rtmppr4JCy/Rd2pdf34877a76fa7b'

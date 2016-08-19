@@ -11,4 +11,4 @@ Description: A set of common functions for the analysis of high throughput
 License: file LICENSE
 NeedsCompilation: no
 Packaged: 2016-08-19 13:30:45 UTC; ggloor
-Built: R 3.3.0; ; 2016-08-19 13:30:54 UTC; unix
+Built: R 3.3.0; ; 2016-08-19 13:45:51 UTC; unix
