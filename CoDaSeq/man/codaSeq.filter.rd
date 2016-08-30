@@ -20,7 +20,7 @@ codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.
 		The minimum proportional abundance of a read in any sample. Default=0.001.
 	}
 	\item{max.prop}{
-		The maximum proportional abundance of a read in any sample. Default=0.025.
+		The maximum proportional abundance of a read in any sample. Default=1.
 	}
 	\item{min.fraction}{
 		The minimum sample proportion of non-0 reads for each variable.

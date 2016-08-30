@@ -21,7 +21,7 @@
 # to do add taxonomy filter
 # @ export
 
-codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=0.025,
+codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
   min.occurrence=0, samples.by.row=TRUE){
   if(samples.by.row==FALSE) data <-x
   if(samples.by.row==TRUE) data <- t(x)

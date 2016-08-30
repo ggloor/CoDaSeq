@@ -26,7 +26,7 @@ codaSeq.propr.aldex.phi <- function(aldex.clr){
 	#    is symmetrical
 	# this is needed so subsequent subset function works properly
 	sma.df <- data.frame(row=factor(rownames(sym.phi)[lt.ind[,"row"]]),
-		col=factor(colnames(sym.phi)[lt.ind[,"col"]]))
+		col=factor(colnames(sym.phi)[lt.ind[,"col"]]), stringsAsFactors=FALSE)
 
 	#save the lower triangle as an expected value
 	sma.df$phi <- sym.phi[lt] /  numMCInstances(aldex.clr)

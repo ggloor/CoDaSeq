@@ -1,8 +1,0 @@
-codaSeq.clr             Center Log-Ratio Function.
-codaSeq.filter          Filter compositional dataset for 0 values and
-                        abundance.
-codaSeq.outlier         Identifying sample Outliers.
-codaSeq.propr.aldex.phi
-                        Expected Value of Phi From Dirichlet Log-Ratio
-                        Distribution
-codaSeq.rarefy          Subsample dataset without replacement.
