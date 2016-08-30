@@ -18,7 +18,6 @@
 # @return A reduced set of data with samples by rows.
 #
 # @examples
-# to do add taxonomy filter
 # @ export
 
 codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
@@ -30,7 +29,6 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
   data.0 <- data[,which(apply(data,2,sum) > min.reads)]
 
   d.frac <- apply(data.0, 2, function(x){x/sum(x)})
-#data.1 <- data.0[ (which(apply(d.frac, 1, max) > min.prop & ) & (which(apply(d.frac, 1, max)< max.prop))),]
   data.1 <- data.0[ (which((apply(d.frac,1,max) > min.prop) & (apply(d.frac,1,max) < max.prop))),]
   rm(d.frac)
 

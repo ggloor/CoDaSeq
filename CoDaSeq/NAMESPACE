@@ -1,6 +1,6 @@
 importFrom("grDevices", "rgb")
 importFrom("graphics", "abline", "hist", "par", "plot", "points", "boxplot")
-importFrom("stats", "IQR", "median", "prcomp")
+importFrom("stats", "IQR", "median", "prcomp", "quantile", "var")
 importFrom("ALDEx2", "getMonteCarloInstances", "numMCInstances")
 #export( codaSeq )
 exportPattern( "^codaSeq[.]*" )

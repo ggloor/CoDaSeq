@@ -2,11 +2,12 @@
 \alias{codaSeq.filter}
 \title{Filter compositional dataset for 0 values and abundance.}
 \description{
-	Returns a reduced able of counts where the samples must contain a minimum number of reads,
-	and OTUs must be found with a minimum abundance in all remaining samples.
+	Returns a reduced able of counts where the samples must contain a minimum number of
+	reads, and OTUs must be found with a minimum abundance in all remaining samples.
+	Filters are applied sequentially
 }
 \usage{
-codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.prop=0.025,
+codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
   min.occurrence=0, samples.by.row=TRUE)
 }
 \arguments{
@@ -22,15 +23,15 @@ codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.
 	\item{max.prop}{
 		The maximum proportional abundance of a read in any sample. Default=1.
 	}
-	\item{min.fraction}{
-		The minimum sample proportion of non-0 reads for each variable.
+	\item{min.occurrence}{
+		The minimum fraction of non-0 reads for each variable in all samples.
 	}
 	\item{sample.by.row}{
 		True if rows contain samples, false if rows contain variables.
 	}
 }
 \details{
-	Filters min/max.prop first, min.fraction second, min/max.prop third.
+	Filters by min.reads first,  min/max.prop second, min.occurrence third.
 	Requires numeric data only.
 }
 \value{
@@ -47,7 +48,7 @@ codaSeq.filter <- function(x, y=tax.vector, min.reads=5000, min.prop=0.001, max.
 	Please use the citation given by \code{citation(package="CoDaSeq")}
 }
 \author{
-	Greg Gloor, Jean Macklai, Wallace Chan
+	Greg Gloor, Jean Macklaim, Wallace Chan
 }
 \seealso{
 	\code{\link{codaSeq.clr}},
