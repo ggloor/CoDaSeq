@@ -8,7 +8,7 @@
 }
 \usage{
 codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
-  min.occurrence=0, samples.by.row=TRUE)
+    min.occurrence=0, samples.by.row=TRUE)
 }
 \arguments{
 	\item{x}{
@@ -57,4 +57,12 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
 	\code{\link{codaSeq.propr.aldex.phi}}
 }
 \examples{
+    # data are samples by column, and OTUs by row.
+    data(ak_op)
+    filt <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.01, max.prop=1,
+        min.occurrence=0.2, samples.by.row=FALSE)
+    dim(filt) # should return 179 OTUs and 30 samples
+
+    filt <- codaSeq.filter(ak_op, samples.by.row=FALSE)
+    dim(filt) # should return 1061 OTUs and 15 samples
 }
