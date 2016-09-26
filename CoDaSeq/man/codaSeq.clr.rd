@@ -1,66 +1,38 @@
-\name{codaSeq.stripchart}
-\alias{codaSeq.stripchart}
-\title{Stripcharts per group}
+\name{codaSeq.clr}
+\alias{codaSeq.clr}
+\title{Center Log-Ratio Function.}
 \description{
-    Generates a stripchart where the features are grouped. Examples would include grouping
-    OTUs at particular taxonomic levels, or genes into pathways, etc.
+    Returns a matrix of center log-ratio transformed data with samples by row.
+    Equivalent to log(x/gx) for every value where gx is the geometic mean of the vector X.
 }
 \usage{
-	codaSeq.stripchart <- function(
-		aldex.out=NULL, group.table=NULL, group.label=NULL, method="wi.eBH",
-		x.axis="effect", effect.cutoff=1, p.cutoff=1, cex=0.8,
-		main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE)
-	  {
+    codaSeq.clr <- function(x, IQLR=FALSE, samples.by.row=TRUE)
 }
 \arguments{
-	\item{aldex.out}{
-		The output of ALDEx2 clr and t.test functions in one data frame.
+	\item{x}{
+		A matrix or dataframe with samples by rows or columns.
 	}
-	\item{group.table}{
-		A matrix or data frame with the grouping information. Rownames for this
-		and aldex.out must match. Column names are the desired groups.
+	\item{IQLR}{
+		geometric mean computed on all features if TRUE,
+		or on the set of features with variance between the first
+		and third quartile. To be used when the data is not centered.
 	}
-	\item{group.label}{
-		Column to group by from the group.table.
-	}
-	\item{p.method}{
-		Significance test to plot from aldex.out. One of wi.eBH, we.eBH, wi.ep, we.ep.
-	}
-	\item{x.axis}{
-		X axis value to plot from aldex.out. One of effect, diff.btw.
-	}
-	\item{effect.cutoff}{
-		Minimum effect size to color plotted points. Default 1.
-	}
-	\item{p.cutoff}{
-		Maximum adjusted or raw p value to color plotted points. Default 1.
-	}
-	\item{cex}{
-		size of points to plot.
-	}
-	\item{main}{
-		Plot title
-	}
-	\item{mar}{
-		Left margin size. Adjust manually to find appropriate parameters
-	}
-	\item{do.ylab}{
-		Whether to plot the y axis labels or not. Setting to FALSE gives sets
-		yaxt="n".
+	\item{samples.by.row}{
+		TRUE if samples are by row, FALSE if samples are by column.
 	}
 }
 \details{
-	This is provided as an example. For customization, modify the code.
-	Check to ensure the two input data frames are in the correct format. See documentation.
+	Natural log is used for biplots and other exploratory analyses.
 }
 \value{
-    returns a series of strip charts clustered by group.
+    returns a matrix of clr tranformed values with samples in the rows
+    and variables in columns
 }
 \references{
 	Please use the citation given by \code{citation(package="CoDaSeq")}
 }
 \author{
-	Greg Gloor, Jean Macklaim, Andrew Fernandes, Wallace Chan
+	Greg Gloor, Jean Macklaim, Wallace Chan
 }
 \seealso{
 	\code{\link{codaSeq.filter}},
@@ -69,5 +41,11 @@
 	\code{\link{codaSeq.propr.aldex.phi}}
 }
 \examples{
-    # non yet
+    # get dataset from ALDEx2 package
+    data(selex)
+
+    # convert to clr with an uninformative prior
+    # use only the variables with mid-quartile variance as denominator
+    # output will have samples by rows
+    selex.clr <- codaSeq.clr(selex + 0.5, IQLR=TRUE, samples.by.row=FALSE)
 }
