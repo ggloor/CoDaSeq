@@ -10,7 +10,6 @@
 		aldex.out=NULL, group.table=NULL, group.label=NULL, method="wi.eBH",
 		x.axis="effect", effect.cutoff=1, p.cutoff=1, cex=0.8,
 		main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE)
-	  {
 }
 \arguments{
 	\item{aldex.out}{
