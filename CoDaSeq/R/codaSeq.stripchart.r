@@ -26,7 +26,7 @@ codaSeq.stripchart <- function(
   if(is.null(group.table)) stop("please supply an appropriate group table")
   if(is.null(group.label)) stop("please supply an appropriate group label")
 
-  aldex.out <- data.frame(aldex.out, taxon[rownames(aldex.out), group.label])
+  aldex.out <- data.frame(aldex.out, group.table[rownames(aldex.out), group.label])
   colnames(aldex.out)[ncol(aldex.out)] <- group.label
   aldex.out <- droplevels(aldex.out)
 
