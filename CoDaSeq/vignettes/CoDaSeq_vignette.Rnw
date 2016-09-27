@@ -82,9 +82,7 @@ f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 
 this is junk
 
-
-
-<<echo=TRUE, eval=TRUE, results=hide>>=
+<<echo=TRUE, eval=TRUE, results=verbatim>>=
 
 # perform the singular value decomposition on clr transformed values
 f.pcx <- prcomp(f.clr)
