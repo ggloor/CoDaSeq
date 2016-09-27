@@ -13,8 +13,8 @@ codaSeq.stripchart <- function(
     main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE)
   {
   # aldex.out is the data frame of observations to be plotted
-  # group.table taxon information. Each column is a taxon name at a specific level
-  # group.label is the column name from the taxon file
+  # group.table taxon information. Each column is a taxon name or function at a specific level
+  # group.label is the column name from the taxon or function file
   # x.axis should be either diff.btw (difference) or effect
   # cex controls plot size
   # p.cutoff is the BH corrected wilcoxon rank test statistic
