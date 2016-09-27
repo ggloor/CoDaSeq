@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-\usepackage[margin=1in]{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\usepackage[margin=1in]{geometry}     % See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   % ... or a4paper or a5paper or ...
 %\geometry{landscape}                % Activate for for rotated page geometry
 %\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
@@ -39,20 +39,21 @@ Download and install the most current of CoDaSeq. It has been tested with versio
 
 \section{Exploratory data analysis example of a 16S rRNA gene sequencing experiment using the `ak\_op' example data}
 
-The ak\_op dataset is a small subset of the HMP oral microbiome dataset samples, with 15 samples from the attached keratinized gingiva and 15 samples from the external tooth plaque. These data are used as an example because they are extraordinarily sparse and represent a worst-case scenario for dealing with sparsity. The user is encouraged to try different filtering parameters to explore how filtering by abundance or sparsity affects the results. 
+The ak\_op dataset is a small subset of the HMP oral microbiome dataset samples, with 15 samples from the attached keratinized gingiva and 15 samples from the external tooth plaque. These data are used as an example because they are extraordinarily sparse and represent a worst-case scenario for dealing with sparsity. The user is encouraged to try different filtering parameters to explore how filtering by abundance or sparsity affects the results.
 
 First we load the library and the data and filter it by abundance.
 
 <<echo=TRUE, eval=TRUE, results=hide>>=
 
 library(CoDaSeq)
+library(zCompositions)
 data(ak_op)
 data(hmpgenera)
 
 # the first function is to subset the dataselex
 f <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.01, max.prop=1,
     min.occurrence=0.25, samples.by.row=FALSE)
-    
+
 # this should leave 167 OTUs and 30 samples
 @
 
@@ -63,13 +64,13 @@ CoDaSeq contains several different ways to filter datasets.
 \item[min.prop] OTU-based filter to keep only OTUs that have a proportional abundance greater than the cutoff in any sample. Values range from 0-1. Use 0 to keep all OTUs that have at least one read in any sample.
 \item[max.prop] OTU-based filter to keep only OTUS that have a proportional abundance less than the cutoff in any sample. Values range from 0-1.
 \item[min.occurrence] OTU-based filter to keep OTUs that occur in at least the given proportion of samples. Values range from 0-1.
-\item[samples.by.row] TRUE if data is arranged with samples in rows and OTUs in columns. FALSE if data is arranged with samples in columns and OTUs in rows. 
+\item[samples.by.row] TRUE if data is arranged with samples in rows and OTUs in columns. FALSE if data is arranged with samples in columns and OTUs in rows.
 \end{description}
 
 We now replace 0 counts in the dataset with imputed values using the Count Zero multiplicative method instantiated in the zCompositions package. This approach replaces 0 values in count compositional datasets while retaining the relationships between the remaining values. This is the most principled method for adding a pseudo count to the dataset, but in most cases adding a uniform pseudo count, or a uniform prior to the data will, in general, not have large effects unless unreasonable values are chosen.
 
-<<echo=TRUE, eval=TRUE, results=hide>>
-# replace 0 values with an imputed value using the Count Zero Multiplicative method 
+<<echo=TRUE, eval=TRUE, results=hide>>=
+# replace 0 values with an imputed value using the Count Zero Multiplicative method
 # from the zCompositions package
 # the table is transposed t() to make the samples by row
 # all further analyses have this orientation
@@ -83,7 +84,7 @@ this is junk
 
 
 
-<<echo=TRUE, eval=TRUE, results=hide>>
+<<echo=TRUE, eval=TRUE, results=hide>>=
 
 # perform the singular value decomposition on clr transformed values
 f.pcx <- prcomp(f.clr)
@@ -92,7 +93,7 @@ biplot(f.pcx, var.axes=FALSE, cex=c(0.5,0.6), scale=0)
 \newpage
 
 \subsection{Correcting for asymmetric datasets}
-ALDEx2 now includes methods to centre the data properly when the dataset contains an asymmetry between the groups. An asymmetry can arise for many reasons: in RNA-seq it could arise because samples in one group contain a plasmid and the samples in the other group do not; in metagenomics or 16S rRNA gene sequencing it can arise when the samples in the two groups are taken from different environments; in a selex experiment it can arise because the two groups are under different selective constraints. The asymmetry can manifest either as a difference in sparsity (i.e., one group contains more 0 value features than the other) or as a systematic difference in abundance. When this occurs the geometric mean of each group can be markedly different, and thus an inherent skew in the dataset can occur that leads to false positive and false negative feature calls. 
+ALDEx2 now includes methods to centre the data properly when the dataset contains an asymmetry between the groups. An asymmetry can arise for many reasons: in RNA-seq it could arise because samples in one group contain a plasmid and the samples in the other group do not; in metagenomics or 16S rRNA gene sequencing it can arise when the samples in the two groups are taken from different environments; in a selex experiment it can arise because the two groups are under different selective constraints. The asymmetry can manifest either as a difference in sparsity (i.e., one group contains more 0 value features than the other) or as a systematic difference in abundance. When this occurs the geometric mean of each group can be markedly different, and thus an inherent skew in the dataset can occur that leads to false positive and false negative feature calls.
 
 ALDEx2 now incorporates three approaches to deal with asymmetric datasets:
 

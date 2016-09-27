@@ -36,7 +36,7 @@ codaSeq.stripchart <- function(
   sig.neg <- aldex.out$effect <= effect.cutoff * -1
 
   # get a vector of significant and non-significant rows
-  p.sig <- aldex.out[,p.method]) < p.cutoff & abs(aldex.out$effect) < effect.cutoff
+  p.sig <- aldex.out[,p.method] < p.cutoff & abs(aldex.out$effect) < effect.cutoff
 
   # make a list of unique groups in the dataset
   # there may be empty groups.set, ignore these for now
