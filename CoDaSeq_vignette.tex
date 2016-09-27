@@ -93,6 +93,7 @@ this is junk
 > biplot(f.pcx, var.axes=FALSE, cex=c(0.5,0.6), scale=0)
 \end{Sinput}
 \end{Schunk}
+\includegraphics{CoDaSeq_vignette-003}
 \end{center}
 \end{figure}
 \newpage
@@ -131,3 +132,32 @@ this is junk
 > f.all <- data.frame(f.e,f.t)
 > codaSeq.stripchart(aldex.out=f.all, group.table=hmpgenera, group.label="genus", 
 +     p.cutoff=0.05, x.axis="effect")
+\end{Sinput}
+\end{Schunk}
+\includegraphics{CoDaSeq_vignette-004}
+\end{center}
+\end{figure}
+ 
+
+\newpage
+
+\subsection{Correcting for asymmetric datasets}
+ALDEx2 now includes methods to centre the data properly when the dataset contains an asymmetry between the groups. An asymmetry can arise for many reasons: in RNA-seq it could arise because samples in one group contain a plasmid and the samples in the other group do not; in metagenomics or 16S rRNA gene sequencing it can arise when the samples in the two groups are taken from different environments; in a selex experiment it can arise because the two groups are under different selective constraints. The asymmetry can manifest either as a difference in sparsity (i.e., one group contains more 0 value features than the other) or as a systematic difference in abundance. When this occurs the geometric mean of each group can be markedly different, and thus an inherent skew in the dataset can occur that leads to false positive and false negative feature calls.
+
+ALDEx2 now incorporates three approaches to deal with asymmetric datasets:
+
+\begin{enumerate}
+\item{\emph{all}: The default  is to calculate the geometric mean of all features. This is the approach used in previous versions of ALDEx2, and is the usual method for the compositional data analysis approach.}
+\item{\emph{iqlr}: The first new approach is to identify those features that exhibit reproducible variance in the entire dataset. This is called the inter-quartile log-ratio or \emph{iqlr} approach. For this, a uniform prior of 0.5 is applied to the dataset, the clr transformation is applied, and the variance of each feature is calculated. Those features that have variance values that fall between the first and third quartiles of variance for all features are retained. When aldex.clr is called, the geometric mean abundance of only the retained features is calculated and used as  the denominator for log-ratio calculations. Modelling shows that this approach is effective in dealing with datasets with minor amounts of asymmetry, and begins to fail when more than 25\% of the features are asymmetric. The approach has the advantage it has little or no effect on symmetric datasets and so is a safe approach if the user is unsure if the data is mildly asymmetric.  }
+\item{\emph{zero}: The second new approach is to identify those features that are non-zero in each group. In this approach the per-group non-zero features are used aldex.clr calculates the geometric mean in the clr transformation. This method is appropriate when the groups are very asymmetric, but the experimentalist must ask whether the comparison is valid in these extreme cases.}
+\item{\emph{user}: The third new approach is to let the user define the set of `invariant' features. In the case of meta-rna-seq, it could be argued that the levels of housekeeping genes should be standard for all samples. In this case the user could define the row indices that correspond to the particular set of housekeeping genes to use as the standard. \emph{It is important that no row contain all 0 values for any feature when this method is used.} }
+\end{enumerate}
+
+ %%%
+\newpage
+\section{Contributors}
+Andrew Fernandes wrote the original ALDEx code, and designed ALDEx2. Jean Macklaim found and squished a number of bugs, performed  testing, did much of the validation. Matt Links incorporated several ALDEx2 functions into a multicore environment. Adrianne Albert wrote the correlation and the one-way ANOVA modules. Ruth Grace Wong added function definitions and made the parallel code functional with BioConducter. Jia Rong Wu developed and implemented the alternate denominator method to correct for asymmetric datasets. Andrew Fernandes, Jean Macklaim and Ruth Grace Wong contributed to the Sum-FunctionsAitchison.R code. Greg Gloor is currently maintaining ALDEx2 and played roles in design and implementation.
+
+\section{Version information}
+
+\end{document}

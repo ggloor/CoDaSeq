@@ -84,7 +84,7 @@ this is junk
 
 \begin{figure}\label{biplot}
 \begin{center}
-<<echo=TRUE, eval=TRUE, results=verbatim>>=
+<<fig=TRUE, echo=TRUE, eval=TRUE, results=verbatim>>=
 
 # perform the singular value decomposition on clr transformed values
 f.pcx <- prcomp(f.clr)
@@ -98,7 +98,7 @@ biplot(f.pcx, var.axes=FALSE, cex=c(0.5,0.6), scale=0)
 
 \begin{figure}\label{strip chart}
 \begin{center}
-<<echo=TRUE, eval=TRUE>>=
+<<fig=TRUE, echo=TRUE, eval=TRUE>>=
 
 # perform the singular value decomposition on clr transformed values
 conds <- c(rep("A", 15), rep("O", 15))
