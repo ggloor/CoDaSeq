@@ -82,12 +82,39 @@ f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 
 this is junk
 
+\begin{figure}\label{biplot}
+\begin{center}
 <<echo=TRUE, eval=TRUE, results=verbatim>>=
 
 # perform the singular value decomposition on clr transformed values
 f.pcx <- prcomp(f.clr)
 biplot(f.pcx, var.axes=FALSE, cex=c(0.5,0.6), scale=0)
 @
+\end{center}
+\end{figure}
+\newpage
+
+\subsection{Stripcharts}
+
+\begin{figure}\label{strip chart}
+\begin{center}
+<<echo=TRUE, eval=TRUE, results=verbatim>>=
+
+# perform the singular value decomposition on clr transformed values
+conds <- c(rep("A", 15), rep("O", 15))
+
+f.x <- aldex.clr(f, conds)
+f.e <- aldex.effect(f.x, conds)
+f.t <- aldex.ttest(f.x, conds)
+f.all <- data.frame(f.e,f.t)
+
+codaSeq.stripchart(aldex.out=f.all, group.table=hmpgenera, group.label="genus", 
+    p.cutoff=0.05, x.axis="effect")
+@
+\end{center}
+\end{figure}
+ 
+
 \newpage
 
 \subsection{Correcting for asymmetric datasets}
