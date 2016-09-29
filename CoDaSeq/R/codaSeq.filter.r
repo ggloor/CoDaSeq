@@ -30,7 +30,6 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
   if ( any( round(data) != data ) ) stop("not all values are integers")
   if ( any( data < 0 ) )             stop("one or more values are negative")
 
-  # todo: check for numeric
   data.0 <- data[,which(apply(data,2,sum) > min.reads)]
 
   d.frac <- apply(data.0, 2, function(x){x/sum(x)})
