@@ -23,21 +23,7 @@ codaSeq.propr.aldex.phi(aldex.clr)
 	The sma.df function in particular is very time and memory intensive
 }
 \value{
-	\item{sym.phi}{
-		Calculated sum of phi values through all DIR MC instances.
-	}
-	\item{lt}{
-		Indice of correct size.
-	}
-	\item{lt.int}{
-		Indice of correct size.
-	}
-	\item{sma.df}{
-		Dataframe to hold info.
-	}
-	\item{sma.df$phi}{
-		Dataframe to hold the lower triangle because the matrix is symmetrical
-	}
+	returns a list. phi values are only useful information in the list
 }
 \references{
 	Please use the citation given by \code{citation(package="CoDaSeq")}
