@@ -22,8 +22,13 @@
 
 codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
   min.occurrence=0, samples.by.row=TRUE){
+
   if(samples.by.row==FALSE) data <-x
   if(samples.by.row==TRUE) data <- t(x)
+  if(length(rownames(data)) == 0) stop("rownames cannot be empty")
+  if(length(colnames(data)) == 0) stop("colnames cannot be empty")
+  if ( any( round(data) != data ) ) stop("not all values are integers")
+  if ( any( data < 0 ) )             stop("one or more values are negative")
 
   # todo: check for numeric
   data.0 <- data[,which(apply(data,2,sum) > min.reads)]
@@ -36,4 +41,5 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
     function(x){length(which(x != 0))/length(x)}) > min.occurrence),])
 
   return( data.2 )
+
 }
