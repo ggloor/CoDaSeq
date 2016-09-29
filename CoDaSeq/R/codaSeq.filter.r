@@ -54,10 +54,10 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
       median(var.clr))]
     data.2 <- data.frame(data.1[names.hvar,][ which(apply(data.1[names.hvar,],2,max) > 0),],
       stringsAsFactors=FALSE)
-  } else if(min.count >0){
+  } else if(min.count > 0){
     warning("filtering on sample read count and minimum feature read count only")
     data.0 <- data[,which(apply(data,2,sum) > min.reads)]
-    data.2 <- data.frame(data.0[ which(apply(data.0,2,max) > min.count),],
+    data.2 <- data.frame(data.0[ which(apply(data.0,1,max) >= min.count),],
       stringsAsFactors=FALSE)
 
   }
