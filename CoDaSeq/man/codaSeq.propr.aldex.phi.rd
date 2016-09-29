@@ -9,9 +9,12 @@
 	value is always large.
 }
 \usage{
-codaSeq.propr.aldex.phi <- function(aldex.clr)
+codaSeq.propr.aldex.phi(aldex.clr)
 }
 \arguments{
+	\item{aldex.clr}{
+		Output from aldex.clr function
+	}
 }
 \details{
 	Requires aldex.clr function from ALDEx2 Package.

@@ -6,7 +6,7 @@
 	sample names that are outliers, and sample names that are not outliers.
 }
 \usage{
-codaSeq.outlier <- function(x, plot.me=TRUE, col=rgb(1,0,0,0.3))
+codaSeq.outlier(x, plot.me=TRUE, col=rgb(1,0,0,0.3))
 }
 \arguments{
 	\item{x}{

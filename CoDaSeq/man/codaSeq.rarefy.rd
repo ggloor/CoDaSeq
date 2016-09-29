@@ -7,7 +7,7 @@
 	results in a loss of information, and distorts the underlying data somewhat.
 }
 \usage{
-codaSeq.rarefy <- function(x, n=1000, samples.by.row=TRUE)
+codaSeq.rarefy(x, n=1000, samples.by.row=TRUE)
 }
 \arguments{
 	\item{x}{
@@ -16,7 +16,7 @@ codaSeq.rarefy <- function(x, n=1000, samples.by.row=TRUE)
 	\item{n}{
 		The desired target number of reads per sample. Default=1000.
 	}
-		\item{sample.by.row}{
+		\item{samples.by.row}{
 		True if rows contain samples, false if rows contain OTUs.
 	}
 }

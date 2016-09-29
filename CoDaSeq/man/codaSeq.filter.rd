@@ -7,8 +7,8 @@
 	Filters are applied sequentially
 }
 \usage{
-codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
-    min.occurrence=0, samples.by.row=TRUE)
+codaSeq.filter(x, min.reads=5000, min.prop=0.001, max.prop=1,
+  min.occurrence=0, var.filt=FALSE, min.count=0, samples.by.row=TRUE)
 }
 \arguments{
 	\item{x}{
@@ -26,7 +26,13 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
 	\item{min.occurrence}{
 		The minimum fraction of non-0 reads for each variable in all samples.
 	}
-	\item{sample.by.row}{
+	\item{var.filt}{
+		Filter to exclude features with below median variance.
+	}
+	\item{min.count}{
+		Filter to exclude features below a minimum read count in any sample.
+	}
+	\item{samples.by.row}{
 		True if rows contain samples, false if rows contain variables.
 	}
 }

@@ -6,7 +6,7 @@
     Equivalent to log(x/gx) for every value where gx is the geometic mean of the vector X.
 }
 \usage{
-    codaSeq.clr <- function(x, IQLR=FALSE, samples.by.row=TRUE)
+    codaSeq.clr(x, IQLR=FALSE, samples.by.row=TRUE)
 }
 \arguments{
 	\item{x}{

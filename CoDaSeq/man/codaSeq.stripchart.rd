@@ -6,10 +6,9 @@
     OTUs at particular taxonomic levels, or genes into pathways, etc.
 }
 \usage{
-	codaSeq.stripchart <- function(
-		aldex.out=NULL, group.table=NULL, group.label=NULL, method="wi.eBH",
-		x.axis="effect", effect.cutoff=1, p.cutoff=1, cex=0.8,
-		main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE)
+	codaSeq.stripchart(aldex.out=NULL, group.table=NULL, group.label=NULL,
+	p.method="wi.eBH", x.axis="effect", effect.cutoff=1, p.cutoff=0, cex=0.8,
+    main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE)
 }
 \arguments{
 	\item{aldex.out}{
