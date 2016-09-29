@@ -4,3 +4,5 @@ CoDaSeq.Rcheck/**
 CoDaSeq/.DS_Store
 data/.DS_Store
 man/.DS_Store
+
+*.gz
