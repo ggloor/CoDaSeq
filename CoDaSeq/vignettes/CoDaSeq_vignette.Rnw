@@ -94,6 +94,96 @@ biplot(f.pcx, var.axes=FALSE, cex=c(0.5,0.6), scale=0)
 \end{figure}
 \newpage
 
+<<fig=FALSE, echo=FALSE, eval=TRUE, results=verbatim>>=
+plot.ellipse <- function(pcx, main=""){
+	f.pcx <- pcx
+	f.mvar <- sum(f.pcx$sdev^2)
+	f.PC1 <- paste("PC1: ", round(sum(f.pcx$sdev[1]^2)/f.mvar, 3))
+	f.PC2 <- paste("PC2: ", round(sum(f.pcx$sdev[2]^2)/f.mvar, 3))
+
+
+	plot(f.pcx$rotation[,1], f.pcx$rotation[,2], pch=19, xlab=f.PC1, ylab=f.PC2,
+		col=rgb(0,0,0,0.1),  main=main,
+		xlim=c(min(f.pcx$rotation[,1]) , max(f.pcx$rotation[,1])) * 1.1,
+		ylim=c(min(f.pcx$rotation[,2]) , max(f.pcx$rotation[,2])) * 1.1
+		)
+		abline(h=0, lty=2, lwd=2, col=rgb(0,0,0,0.3))
+		abline(v=0, lty=2, lwd=2, col=rgb(0,0,0,0.3))
+
+
+	plot(f.pcx$x[,1], f.pcx$x[,2], pch=19, xlab=f.PC1, ylab=f.PC2,
+		col=rgb(0,0,0,0.1),  main=main,
+		xlim=c(min(f.pcx$x[,1]) -5, max(f.pcx$x[,1]) +5    ),
+		ylim=c(min(f.pcx$x[,2]) -5, max(f.pcx$x[,2]) +5    )
+		)
+		abline(h=0, lty=2, lwd=2, col=rgb(0,0,0,0.3))
+		abline(v=0, lty=2, lwd=2, col=rgb(0,0,0,0.3))
+
+	rbcol=c("red", "blue")
+	grp = list(c(1:15), c(16:30))
+	for(i in 1:2){
+	dataEllipse(f.pcx$x[grp[[i]],1], f.pcx$x[grp[[i]],2],
+		levels=c(0.75), center.cex=FALSE, plot.points=TRUE, add=TRUE, col=rbcol[i],
+		fill = TRUE, fill.alpha = 0.2, pch=19)
+	}
+}
+@
+<<fig=TRUE, height=8, width=8, echo=FALSE, eval=TRUE, results=hide>>=
+
+par(mfrow=c(3,4))
+
+label="ALL"
+f <- codaSeq.filter(ak_op, min.reads=1000, samples.by.row=FALSE, min.count=1)
+f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+# perform the centered log-ratio transformation
+f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
+f.pcx <- prcomp(f.clr)
+plot.ellipse(f.pcx, main=label)
+
+label="min.count=100"
+f <- codaSeq.filter(ak_op, min.reads=1000, min.count=10, samples.by.row=FALSE)
+f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+# perform the centered log-ratio transformation
+f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
+f.pcx <- prcomp(f.clr)
+plot.ellipse(f.pcx, main=label)
+
+label="min.prop=0.01"
+f <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.01, samples.by.row=FALSE)
+f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+# perform the centered log-ratio transformation
+f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
+f.pcx <- prcomp(f.clr)
+plot.ellipse(f.pcx, main=label)
+
+label="max.prop=0.01"
+f <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.001, max.prop=0.01, samples.by.row=FALSE)
+f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+# perform the centered log-ratio transformation
+f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
+f.pcx <- prcomp(f.clr)
+plot.ellipse(f.pcx, main=label)
+
+label="var.filt=TRUE"
+f <- codaSeq.filter(ak_op, min.reads=1000, var.filt=TRUE, samples.by.row=FALSE)
+f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+# perform the centered log-ratio transformation
+f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
+f.pcx <- prcomp(f.clr)
+plot.ellipse(f.pcx, main=label)
+
+label="min.occurrence=0.5"
+f <- codaSeq.filter(ak_op, min.reads=1000, min.occurrence=0.5, samples.by.row=FALSE)
+f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+# perform the centered log-ratio transformation
+f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
+f.pcx <- prcomp(f.clr)
+plot.ellipse(f.pcx, main=label)
+
+@
+
+\newpage
+
 \subsection{Stripcharts}
 
 \begin{figure}\label{strip chart}
@@ -109,7 +199,7 @@ f.t <- aldex.ttest(f.x, conds)
 f.all <- data.frame(f.e,f.t)
 
 codaSeq.stripchart(aldex.out=f.all, group.table=hmpgenera, group.label="genus", 
-    p.cutoff=0.05, x.axis="effect")
+    p.cutoff=0.05, x.axis="effect",mar=c(2,8,4,0.5))
 @
 \end{center}
 \end{figure}
