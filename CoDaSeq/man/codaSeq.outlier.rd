@@ -48,7 +48,7 @@ codaSeq.outlier(x, plot.me=TRUE, col=rgb(1,0,0,0.3))
 	\code{\link{codaSeq.clr}},
 	\code{\link{codaSeq.filter}},
 	\code{\link{codaSeq.rarefy}},
-	\code{\link{codaSeq.propr.aldex.phi}}
+	\code{\link{codaSeq.phi}}
 }
 \examples{
 }

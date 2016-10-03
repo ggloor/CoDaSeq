@@ -60,7 +60,7 @@ codaSeq.filter(x, min.reads=5000, min.prop=0.001, max.prop=1,
 	\code{\link{codaSeq.clr}},
 	\code{\link{codaSeq.outlier}},
 	\code{\link{codaSeq.rarefy}},
-	\code{\link{codaSeq.propr.aldex.phi}}
+	\code{\link{codaSeq.phi}}
 }
 \examples{
     # data are samples by column, and OTUs by row.

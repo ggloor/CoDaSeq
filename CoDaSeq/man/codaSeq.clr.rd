@@ -38,7 +38,7 @@
 	\code{\link{codaSeq.filter}},
 	\code{\link{codaSeq.outlier}},
 	\code{\link{codaSeq.rarefy}},
-	\code{\link{codaSeq.propr.aldex.phi}}
+	\code{\link{codaSeq.phi}}
 }
 \examples{
     # get dataset from ALDEx2 package

@@ -34,7 +34,7 @@ codaSeq.rarefy(x, n=1000, samples.by.row=TRUE)
 	\code{\link{codaSeq.clr}},
 	\code{\link{codaSeq.outlier}},
 	\code{\link{codaSeq.rarefy}},
-	\code{\link{codaSeq.propr.aldex.phi}}
+	\code{\link{codaSeq.phi}}
 }
 \examples{
 }

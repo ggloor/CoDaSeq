@@ -64,7 +64,7 @@
 	\code{\link{codaSeq.filter}},
 	\code{\link{codaSeq.outlier}},
 	\code{\link{codaSeq.rarefy}},
-	\code{\link{codaSeq.propr.aldex.phi}}
+	\code{\link{codaSeq.phi}}
 }
 \examples{
     # non yet

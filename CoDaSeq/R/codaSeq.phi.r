@@ -1,5 +1,4 @@
-
-codaSeq.propr.aldex.phi <- function(aldex.clr){
+codaSeq.phi <- function(aldex.clr){
 
 	# calculate expected value of phi
 	# a single high phi value will push the component out of consideration

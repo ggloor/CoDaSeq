@@ -1,15 +1,16 @@
-\name{codaSeq.propr.aldex.phi}
-\alias{codaSeq.propr.aldex.phi}
+\name{codaSeq.phi}
+\alias{codaSeq.phi}
 \title{Expected Value of Phi From Dirichlet Log-Ratio Distribution}
 \description{
 	Returns data frame of the lower-triangle of symmetrical phi metric,
 	where the value of phi is the expected value of a number of Dirichlet
 	Monte-Carlo replicates of the data. This reduces the problem of 0-count and low-count
-	features being highly variable because their values range wildly and so the expected
+	features being identified as false positives. These values are
+	highly variable because their values range wildly and so the expected
 	value is always large.
 }
 \usage{
-codaSeq.propr.aldex.phi(aldex.clr)
+codaSeq.phi(aldex.clr)
 }
 \arguments{
 	\item{aldex.clr}{
@@ -20,10 +21,10 @@ codaSeq.propr.aldex.phi(aldex.clr)
 	Requires aldex.clr function from ALDEx2 Package.
 	Param aldex.clr is an S3 object from the aldex.clr function.
 	We ignore all the other measures that are used for trouble-shooting phi.
-	The sma.df function in particular is very time and memory intensive
+	The function is time and memory intensive
 }
 \value{
-	returns a list. phi values are only useful information in the list
+	returns only the expected phi values
 }
 \references{
 	Please use the citation given by \code{citation(package="CoDaSeq")}
