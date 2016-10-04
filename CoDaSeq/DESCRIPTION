@@ -6,6 +6,7 @@ Date: 2016-05-21
 Author: Greg Gloor, Wallace Chan
 Maintainer: Greg Gloor <ggloor@uwo.ca>
 Depends: ALDEx2, zCompositions, car
+Suggests: testthat
 Description: A set of common functions for the analysis of high throughput
     sequencing count data.
 License: file LICENSE
