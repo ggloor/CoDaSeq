@@ -8,7 +8,7 @@
 \usage{
 	codaSeq.stripchart(aldex.out=NULL, group.table=NULL, group.label=NULL,
 	p.method="wi.eBH", x.axis="effect", effect.cutoff=1, p.cutoff=0, cex=0.8,
-    main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE)
+    main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE, heir=FALSE, heir.base=NULL)
 }
 \arguments{
 	\item{aldex.out}{
@@ -45,6 +45,14 @@
 	\item{do.ylab}{
 		Whether to plot the y axis labels or not. Setting to FALSE gives sets
 		yaxt="n".
+	}
+	\item{heir}{
+		Set to FALSE if there is a one-to-one mapping between levels (e.g. OTUs to taxa).
+		Set to TRUE if there is a many to one mapping between levels (e.g. genes to functions).
+	}
+	\item{heir.base}{
+		The name or index of the column that contains the same names as the aldex.out
+		row names
 	}
 }
 \details{

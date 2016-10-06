@@ -10,7 +10,7 @@ draw.grey.boxes <- function(at) {
 codaSeq.stripchart <- function(
     aldex.out=NULL, group.table=NULL, group.label=NULL, p.method="wi.eBH",
     x.axis="effect", effect.cutoff=1, p.cutoff=0, cex=0.8,
-    main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE)
+    main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE, heir=FALSE, heir.base=NULL)
   {
   # aldex.out is the data frame of observations to be plotted
   # group.table taxon information. Each column is a taxon name or function at a specific level
@@ -27,21 +27,45 @@ codaSeq.stripchart <- function(
   if(is.null(group.label)) stop("please supply an appropriate group label")
   if(p.cutoff > 0.1) stop("p value cutoff not realistic")
 
-  aldex.out <- data.frame(aldex.out, group.table[rownames(aldex.out), group.label])
-  colnames(aldex.out)[ncol(aldex.out)] <- group.label
-  aldex.out <- droplevels(aldex.out)
+  non.sig <- list()
+  sig.pos <- list()
+  sig.neg <- list()
+  p.sig <- list()
 
-  # get a vector of significant and non-significant rows
-  non.sig <- abs(aldex.out$effect) < effect.cutoff & aldex.out[,p.method] > p.cutoff
-  sig.pos <- aldex.out$effect >= effect.cutoff
-  sig.neg <- aldex.out$effect <= effect.cutoff * -1
+  if(heir == FALSE){
+    aldex.out <- data.frame(aldex.out, group.table[rownames(aldex.out), group.label])
+    colnames(aldex.out)[ncol(aldex.out)] <- group.label
+    aldex.out <- droplevels(aldex.out)
 
-  # get a vector of significant and non-significant rows
-  p.sig <- aldex.out[,p.method] < p.cutoff & abs(aldex.out$effect) < effect.cutoff
+    # make a list of unique groups in the dataset
+    # there may be empty groups.set, ignore these for now
+    groups.set <- unique(aldex.out[[group.label]])
 
-  # make a list of unique groups in the dataset
-  # there may be empty groups.set, ignore these for now
-  groups.set <- unique(aldex.out[[group.label]])
+	for(i in 1:length(groups.set)){
+		grp.nms <- rownames(aldex.out)[aldex.out[,group.label] == groups.set[i]]
+
+		non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) < effect.cutoff & aldex.out[grp.nms,p.method] > p.cutoff]
+		sig.pos[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] > effect.cutoff]
+		sig.neg[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] < effect.cutoff * -1]
+		p.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff & abs(aldex.out[grp.nms, "effect"]) < effect.cutoff]
+	}
+
+
+  }else if(heir == TRUE){
+  	if(is.null(heir.base)) stop("please supply the index or name of the heirarchy base")
+    nms <- group.table[group.table[,heir.base] %in% rownames(aldex.out),]
+    groups.set <- unique(nms[[group.label]])
+
+	for(i in 1:length(groups.set)){
+		grp.nms <- nms[,heir.base][nms[,group.label] == groups.set[i]]
+
+		non.sig[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) < effect.cutoff  & aldex.out[grp.nms,p.method] > p.cutoff]
+		sig.pos[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] > effect.cutoff]
+		sig.neg[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] < effect.cutoff * -1]
+		p.sig[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff & abs(aldex.out[grp.nms, "effect"]) < effect.cutoff]
+	}
+
+  }
 
   # generate a y axis plotting limit a bit larger than needed
   ylim<-c(length(groups.set) - (length(groups.set)+0.5), length(groups.set) + 0.5)
@@ -51,22 +75,23 @@ codaSeq.stripchart <- function(
 
   # basically can call the different significant groups.set within strip chart
   par(mar=mar, las=1, cex=cex)
-if(do.ylab == TRUE) { stripchart(aldex.out[non.sig,x.axis] ~ aldex.out[non.sig,group.label],
+if(do.ylab == TRUE) { stripchart(non.sig,
     col=c(rgb(0,0,0,0.3),rgb(0,0,0,0.3)), method="jitter", pch=19, xlim=xlim, xlab=x.axis, main=main)
     }
-if(do.ylab == FALSE) {stripchart(aldex.out[non.sig,x.axis] ~ aldex.out[non.sig,group.label],
+if(do.ylab == FALSE) {stripchart(non.sig,
     col=rgb(0,0,0,0.3), method="jitter", pch=19, xlim=xlim, xlab=x.axis, main=main, yaxt="n")
     }
 
 draw.grey.boxes(as.vector(groups.set))
+sig.cex=cex+0.2
 
-  stripchart(aldex.out[p.sig,x.axis] ~ aldex.out[p.sig,group.label],
-    col=rgb(0,0,1,0.7),method="jitter", pch=19, add=T, cex=cex+0.2)
+  stripchart(p.sig,
+    col=rgb(0,0,1,0.7),method="jitter", pch=19, add=T, cex=sig.cex)
 
-  stripchart(aldex.out[sig.pos,x.axis] ~ aldex.out[sig.pos,group.label],
-    col=rgb(1,0,0,1),method="jitter", pch=19, add=T, cex=cex+0.2)
-  stripchart(aldex.out[sig.neg,x.axis] ~ aldex.out[sig.neg,group.label],
-    col=rgb(1,0,0,1),method="jitter", pch=19, add=T, cex=cex+0.2)
+  stripchart(sig.pos,
+    col=rgb(1,0,0,1),method="jitter", pch=19, add=T, cex=sig.cex)
+  stripchart(sig.neg,
+    col=rgb(1,0,0,1),method="jitter", pch=19, add=T, cex=sig.cex)
 
   abline(v=0, lty=2, col=rgb(0,0,0,0.2),lwd=2)
   abline(v=1, lty=3, col=rgb(0,0,0,0.2),lwd=2)
