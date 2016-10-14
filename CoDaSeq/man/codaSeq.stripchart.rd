@@ -7,7 +7,7 @@
 }
 \usage{
 	codaSeq.stripchart(aldex.out=NULL, group.table=NULL, group.label=NULL,
-	p.method="wi.eBH", x.axis="effect", effect.cutoff=1, p.cutoff=0, cex=0.8,
+	p.method="wi.eBH", x.axis="effect", effect.cutoff=1, p.cutoff=0, plot.p=TRUE, cex=0.8,
     main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE, heir=FALSE, heir.base=NULL)
 }
 \arguments{
@@ -31,7 +31,10 @@
 		Minimum effect size to color plotted points. Default 1.
 	}
 	\item{p.cutoff}{
-		Maximum adjusted or raw p value to color plotted points. Default 1.
+		Maximum adjusted or raw p value to color plotted points. Default 0.
+	}
+	\item{plot.p}{
+		Plot points below the expected raw or adjusted p value. These will be overplotted.
 	}
 	\item{cex}{
 		size of points to plot.

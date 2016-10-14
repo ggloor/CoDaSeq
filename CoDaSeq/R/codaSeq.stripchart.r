@@ -9,7 +9,7 @@ draw.grey.boxes <- function(at) {
 
 codaSeq.stripchart <- function(
     aldex.out=NULL, group.table=NULL, group.label=NULL, p.method="wi.eBH",
-    x.axis="effect", effect.cutoff=1, p.cutoff=0, cex=0.8,
+    x.axis="effect", effect.cutoff=1, p.cutoff=0, plot.p=TRUE, cex=0.8,
     main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE, heir=FALSE, heir.base=NULL)
   {
   # aldex.out is the data frame of observations to be plotted
@@ -47,7 +47,7 @@ codaSeq.stripchart <- function(
 		non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) < effect.cutoff & aldex.out[grp.nms,p.method] > p.cutoff]
 		sig.pos[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] > effect.cutoff]
 		sig.neg[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] < effect.cutoff * -1]
-		p.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff & abs(aldex.out[grp.nms, "effect"]) < effect.cutoff]
+		p.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff]
 	}
 
 
@@ -85,13 +85,12 @@ if(do.ylab == FALSE) {stripchart(non.sig,
 draw.grey.boxes(as.vector(groups.set))
 sig.cex=cex+0.2
 
-  stripchart(p.sig,
-    col=rgb(0,0,1,0.7),method="jitter", pch=19, add=T, cex=sig.cex)
+  if(plot.p == TRUE) stripchart(p.sig, col=rgb(0,0,1,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
 
   stripchart(sig.pos,
-    col=rgb(1,0,0,1),method="jitter", pch=19, add=T, cex=sig.cex)
+    col=rgb(1,0,0,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
   stripchart(sig.neg,
-    col=rgb(1,0,0,1),method="jitter", pch=19, add=T, cex=sig.cex)
+    col=rgb(1,0,0,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
 
   abline(v=0, lty=2, col=rgb(0,0,0,0.2),lwd=2)
   abline(v=1, lty=3, col=rgb(0,0,0,0.2),lwd=2)
