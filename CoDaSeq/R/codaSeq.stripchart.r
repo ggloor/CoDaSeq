@@ -26,6 +26,7 @@ codaSeq.stripchart <- function(
   if(is.null(group.table)) stop("please supply an appropriate group table")
   if(is.null(group.label)) stop("please supply an appropriate group label")
   if(p.cutoff > 0.1) stop("p value cutoff not realistic")
+  if(plot.p == FALSE) stop(p.cutoff=0)
 
   non.sig <- list() # not sig by effect or p
   sig.both <- list() # sig by effect and p

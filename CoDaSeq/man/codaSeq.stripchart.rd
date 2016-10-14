@@ -59,7 +59,9 @@
 	}
 }
 \details{
-	This is provided as an example. For customization, modify the code.
+	This is provided as an example. For customization, modify the code. Features are
+	colored red if both effect and P pass their thresholds, magenta if effect only
+	passes, and blue if p-value only passes. Non-significant features are grey.
 	Check to ensure the two input data frames are in the correct format. See documentation.
 }
 \value{
