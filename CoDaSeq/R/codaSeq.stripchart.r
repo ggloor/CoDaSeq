@@ -27,10 +27,10 @@ codaSeq.stripchart <- function(
   if(is.null(group.label)) stop("please supply an appropriate group label")
   if(p.cutoff > 0.1) stop("p value cutoff not realistic")
 
-  non.sig <- list()
-  sig.pos <- list()
-  sig.neg <- list()
-  p.sig <- list()
+  non.sig <- list() # not sig by effect or p
+  sig.both <- list() # sig by effect and p
+  sig.eff <- list() # sig by effect only
+  p.sig <- list() # sig by p only
 
   if(heir == FALSE){
     aldex.out <- data.frame(aldex.out, group.table[rownames(aldex.out), group.label])
@@ -45,9 +45,9 @@ codaSeq.stripchart <- function(
 		grp.nms <- rownames(aldex.out)[aldex.out[,group.label] == groups.set[i]]
 
 		non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) < effect.cutoff & aldex.out[grp.nms,p.method] > p.cutoff]
-		sig.pos[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] > effect.cutoff]
-		sig.neg[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] < effect.cutoff * -1]
-		p.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff]
+		sig.both[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) > effect.cutoff & aldex.out[grp.nms, p.method] < p.cutoff]
+		sig.eff[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) >  effect.cutoff  & aldex.out[grp.nms,p.method] > p.cutoff]
+		p.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff  & abs(aldex.out[grp.nms, "effect"]) < effect.cutoff]
 	}
 
 
@@ -59,10 +59,10 @@ codaSeq.stripchart <- function(
 	for(i in 1:length(groups.set)){
 		grp.nms <- nms[,heir.base][nms[,group.label] == groups.set[i]]
 
-		non.sig[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) < effect.cutoff  & aldex.out[grp.nms,p.method] > p.cutoff]
-		sig.pos[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] > effect.cutoff]
-		sig.neg[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, "effect"] < effect.cutoff * -1]
-		p.sig[[groups.set[i]]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff & abs(aldex.out[grp.nms, "effect"]) < effect.cutoff]
+		non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) < effect.cutoff & aldex.out[grp.nms,p.method] > p.cutoff]
+		sig.both[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) > effect.cutoff & aldex.out[grp.nms, p.method] < p.cutoff]
+		sig.eff[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, "effect"]) >  effect.cutoff  & aldex.out[grp.nms,p.method] > p.cutoff]
+		p.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][aldex.out[grp.nms, p.method] < p.cutoff  & abs(aldex.out[grp.nms, "effect"]) < effect.cutoff]
 	}
 
   }
@@ -85,12 +85,12 @@ if(do.ylab == FALSE) {stripchart(non.sig,
 draw.grey.boxes(as.vector(groups.set))
 sig.cex=cex+0.2
 
-  if(plot.p == TRUE) stripchart(p.sig, col=rgb(0,0,1,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
+  stripchart(sig.both,
+    col=rgb(1,0,0,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
+  stripchart(sig.eff,
+    col=rgb(1,0,1,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
 
-  stripchart(sig.pos,
-    col=rgb(1,0,0,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
-  stripchart(sig.neg,
-    col=rgb(1,0,0,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
+  if(plot.p == TRUE) stripchart(p.sig, col=rgb(0,0,1,0.3),method="jitter", pch=19, add=T, cex=sig.cex)
 
   abline(v=0, lty=2, col=rgb(0,0,0,0.2),lwd=2)
   abline(v=1, lty=3, col=rgb(0,0,0,0.2),lwd=2)

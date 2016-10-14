@@ -34,7 +34,7 @@
 		Maximum adjusted or raw p value to color plotted points. Default 0.
 	}
 	\item{plot.p}{
-		Plot points below the expected raw or adjusted p value. These will be overplotted.
+		Plot points below the expected raw or adjusted p value.
 	}
 	\item{cex}{
 		size of points to plot.
