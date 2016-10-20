@@ -25,7 +25,7 @@ codaSeq.stripchart <- function(
   if(is.null(aldex.out)) stop("please supply an appropriate input from ALDEx2")
   if(is.null(group.table)) stop("please supply an appropriate group table")
   if(is.null(group.label)) stop("please supply an appropriate group label")
-  if(sig.cutoff != "effect" & sig.cutoff > 0.1) stop("p value cutoff not realistic")
+  if(sig.method != "effect" & sig.cutoff > 0.1) stop("p value cutoff not realistic")
 
   non.sig <- list() # not sig
   sig <- list() # significant by effect or by p
@@ -57,14 +57,17 @@ codaSeq.stripchart <- function(
     nms <- group.table[group.table[,heir.base] %in% rownames(aldex.out),]
     groups.set <- unique(nms[[group.label]])
 
+	for(i in 1:length(groups.set)){
+    	grp.nms <- nms[,heir.base][nms[,group.label] == groups.set[i]]
 
-		if(sig.method == "effect"){
-		  non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, sig.method]) > sig.cutoff]
+	if(sig.method == "effect"){
+		  non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, sig.method]) <= sig.cutoff]
 		  sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, sig.method]) > sig.cutoff]
 		}else{
-		  non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, sig.method]) < sig.cutoff]
+		  non.sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, sig.method]) >= sig.cutoff]
 		  sig[[as.character(groups.set[i])]] <- aldex.out[grp.nms,x.axis][abs(aldex.out[grp.nms, sig.method]) < sig.cutoff]
 		}
+    }
   }
 
   # generate a y axis plotting limit a bit larger than needed
