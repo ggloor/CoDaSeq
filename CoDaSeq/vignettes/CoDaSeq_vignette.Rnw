@@ -172,7 +172,7 @@ f.t <- aldex.ttest(f.x, conds)
 f.all <- data.frame(f.e,f.t)
 
 codaSeq.stripchart(aldex.out=f.all, group.table=hmpgenera, group.label="genus", 
-    p.cutoff=0.05, x.axis="effect",mar=c(2,8,4,0.5))
+    sig.cutoff=0.05, sig.method="we.eBH", x.axis="effect", 	mar=c(4,8,4,0.5))
 @
 \end{center}
 \end{figure}

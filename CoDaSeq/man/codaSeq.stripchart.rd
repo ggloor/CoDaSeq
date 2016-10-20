@@ -7,7 +7,7 @@
 }
 \usage{
 	codaSeq.stripchart(aldex.out=NULL, group.table=NULL, group.label=NULL,
-	p.method="wi.eBH", x.axis="effect", effect.cutoff=1, p.cutoff=0, plot.p=TRUE, cex=0.8,
+	sig.method="we.eBH", x.axis="effect", sig.cutoff=0.05, cex=0.8,
     main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE, heir=FALSE, heir.base=NULL)
 }
 \arguments{
@@ -21,22 +21,15 @@
 	\item{group.label}{
 		Column to group by from the group.table.
 	}
-	\item{p.method}{
-		Significance test to plot from aldex.out. One of wi.eBH, we.eBH, wi.ep, we.ep.
+	\item{sig.method}{
+		Significance test to plot from aldex.out. One of effect, overlap, wi.eBH, we.eBH, wi.ep, we.ep.
 	}
 	\item{x.axis}{
 		X axis value to plot from aldex.out. One of effect, diff.btw.
 	}
-	\item{effect.cutoff}{
+	\item{sig.cutoff}{
 		Minimum effect size to color plotted points. Default 1.
-	}
-	\item{p.cutoff}{
-		Maximum adjusted or raw p value to color plotted points. Default 0.
-	}
-	\item{plot.p}{
-		Plot points below the expected raw or adjusted p value.
-	}
-	\item{cex}{
+	}\item{cex}{
 		size of points to plot.
 	}
 	\item{main}{
