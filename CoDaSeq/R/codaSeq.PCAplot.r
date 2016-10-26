@@ -47,15 +47,19 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loa
 		grp = grp
 		for(i in 1:length(grp)){
 		dataEllipse(pcx$x[grp[[i]],1], pcx$x[grp[[i]],2],
-			levels=c(0.75), center.cex=FALSE, plot.points=TRUE, add=TRUE, col=grp.col[i],
-			fill = TRUE, fill.alpha = 0.2, pch=19)
+			levels=c(0.67), center.cex=FALSE, plot.points=TRUE, add=TRUE, col=grp.col[i],
+			fill = TRUE, fill.alpha = 0.2, pch=19,
+			xlim=c(min(pcx$x[,1]) *1.2, max(pcx$x[,1])) *1.2,
+			ylim=c(min(pcx$x[,2]) *1.2, max(pcx$x[,2])) *1.2
+			)
 		}
 	} else if(plot.circles == FALSE){
 		grp.col=grp.col
 		grp = grp
 		for(i in 1:length(grp)){
-
-		points(pcx$x[grp[[i]],1], pcx$x[grp[[i]],2], pch=19, col=grp.col[i])
+		points(pcx$x[grp[[i]],1], pcx$x[grp[[i]],2], pch=19, col=grp.col[i],
+		xlim=c(min(pcx$x[,1]) *1.2, max(pcx$x[,1])) *1.2,
+		ylim=c(min(pcx$x[,2]) *1.2, max(pcx$x[,2])) *1.2)
 	    }
 	}
 }

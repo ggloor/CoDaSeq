@@ -9,7 +9,7 @@ draw.grey.boxes <- function(at) {
 
 codaSeq.stripchart <- function(
     aldex.out=NULL, group.table=NULL, group.label=NULL, sig.method="we.eBH",
-    x.axis="effect", sig.cutoff=0.05, cex=0.8, main=NULL, mar=c(2,12,4,0.5),
+    x.axis="effect", sig.cutoff=0.05, cex=0.8, main=NULL, mar=c(4,12,4,0.5),
     do.ylab=TRUE, heir=FALSE, heir.base=NULL)
   {
   # aldex.out is the data frame of observations to be plotted
@@ -37,7 +37,7 @@ codaSeq.stripchart <- function(
 
     # make a list of unique groups in the dataset
     # there may be empty groups.set, ignore these for now
-    groups.set <- unique(aldex.out[[group.label]])
+    groups.set <- sort(unique(aldex.out[[group.label]]), decreasing=TRUE)
 
 	for(i in 1:length(groups.set)){
 		grp.nms <- rownames(aldex.out)[aldex.out[,group.label] == groups.set[i]]
@@ -55,7 +55,7 @@ codaSeq.stripchart <- function(
   }else if(heir == TRUE){
   	if(is.null(heir.base)) stop("please supply the index or name of the heirarchy base")
     nms <- group.table[group.table[,heir.base] %in% rownames(aldex.out),]
-    groups.set <- unique(nms[[group.label]])
+    groups.set <- sort(unique(nms[[group.label]]), decreasing=TRUE)
 
 	for(i in 1:length(groups.set)){
     	grp.nms <- nms[,heir.base][nms[,group.label] == groups.set[i]]

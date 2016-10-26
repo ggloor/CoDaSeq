@@ -8,7 +8,7 @@
 \usage{
 	codaSeq.stripchart(aldex.out=NULL, group.table=NULL, group.label=NULL,
 	sig.method="we.eBH", x.axis="effect", sig.cutoff=0.05, cex=0.8,
-    main=NULL, mar=c(2,12,4,0.5), do.ylab=TRUE, heir=FALSE, heir.base=NULL)
+    main=NULL, mar=c(4,12,4,0.5), do.ylab=TRUE, heir=FALSE, heir.base=NULL)
 }
 \arguments{
 	\item{aldex.out}{

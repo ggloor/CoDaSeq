@@ -39,7 +39,7 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
 
     data.2 <- data.frame(data.1[which(apply(data.1, 1,
       function(x){length(which(x != 0))/length(x)}) > min.occurrence),],
-      stringsAsFactors=FALSE)
+      stringsAsFactors=FALSE, check.names=FALSE)
   } else if(var.filt==TRUE){
   	if(min.count > 0) warning("filtering on variance will not filter on read count")
   	warning("filtering only on sample read count and feature variance")
@@ -51,12 +51,12 @@ codaSeq.filter <- function(x, min.reads=5000, min.prop=0.001, max.prop=1,
     var.clr <- apply(d.clr,2, var)
     names.hvar <- names(var.clr)[which(var.clr > median(var.clr))]
     data.2 <- data.frame(data.1[which(apply(data.1[names.hvar,],1,max) > 0),],
-      stringsAsFactors=FALSE)
+      stringsAsFactors=FALSE, check.names=FALSE)
   } else if(min.count > 0){
     warning("filtering on sample read count and minimum feature read count only")
     data.0 <- data[,which(apply(data,2,sum) > min.reads)]
     data.2 <- data.frame(data.0[ which(apply(data.0,1,max) >= min.count),],
-      stringsAsFactors=FALSE)
+      stringsAsFactors=FALSE, check.names=FALSE)
 
   }
   return( data.2 )
