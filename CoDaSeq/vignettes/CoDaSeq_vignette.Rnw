@@ -105,7 +105,7 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol, 
+codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
     grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
 
 label="min.count=100"
@@ -114,7 +114,7 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol, 
+codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
     grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
 
 label="min.prop=0.01"
@@ -123,7 +123,7 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol, 
+codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
     grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
 
 label="max.prop=0.01"
@@ -132,7 +132,7 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol, 
+codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
     grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
 
 label="var.filt=TRUE"
@@ -141,7 +141,7 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol, 
+codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
     grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
 
 label="min.occurrence=0.5"
@@ -150,7 +150,7 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol, 
+codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
     grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
 
 @
@@ -171,12 +171,17 @@ f.e <- aldex.effect(f.x, conds)
 f.t <- aldex.ttest(f.x, conds)
 f.all <- data.frame(f.e,f.t)
 
-codaSeq.stripchart(aldex.out=f.all, group.table=hmpgenera, group.label="genus", 
+codaSeq.stripchart(aldex.out=f.all, group.table=hmpgenera, group.label="genus",
     sig.cutoff=0.05, sig.method="we.eBH", x.axis="effect", 	mar=c(4,8,4,0.5))
 @
 \end{center}
 \end{figure}
- 
+
+\newpage
+
+\subsection{Effect sizes with $\mathrm{d_{NEF}}$}
+
+The $\mathrm{d_{NEF}}$ value for two distributions can be calculated using the codaSeq.effect function. This function takes a matrix with samples by column, and a descriptive vector of the data. See `?codaSeq.effect` for an example.
 
 \newpage
 
