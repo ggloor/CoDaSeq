@@ -10,3 +10,4 @@ Suggests: testthat
 Description: A set of common functions for the analysis of high throughput
     sequencing count data.
 License: file LICENSE
+RoxygenNote: 6.0.1
