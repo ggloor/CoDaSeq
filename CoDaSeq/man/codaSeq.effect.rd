@@ -2,7 +2,7 @@
 % Please edit documentation in R/codaSeq.effect.r
 \name{codaSeq.effect}
 \alias{codaSeq.effect}
-\title{Estimate effect size and MMAD}
+\title{Estimate effect size between two distributions}
 \usage{
 codaSeq.effect(x, conds, corrected = FALSE)
 }
@@ -11,7 +11,8 @@ codaSeq.effect(x, conds, corrected = FALSE)
 
 \item{conds}{A vector denoting group membership}
 
-\item{corrected}{Whether to scale to Cohen's d or not, default is FALSE}
+\item{corrected}{Whether to scale to Cohen's d or not,
+default is FALSE}
 }
 \value{
 returns a vector of effect sizes

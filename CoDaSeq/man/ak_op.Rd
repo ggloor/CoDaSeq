@@ -8,8 +8,8 @@
   any OTU where the read count in all samples is 0.
 }
 \usage{ak_op}
-\format{A dataframe of 3743 OTUs and 30 samples. The first 7 samples are non-selected,
- the last 7 are selected.}
+\format{A dataframe of 3743 OTUs and 30 samples. The first 15 samples are attached keratinized gingiva,
+ the last 15 are plaque above the gumline.}
 \source{HMP consortium}
 \references{
  NIH HMP Working Group et al (2009) Genome Res dx.doi.org/10.1101/gr.096651.109

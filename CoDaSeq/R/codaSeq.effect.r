@@ -3,7 +3,8 @@
 #' Calculates relatively robust measures of standardized mean difference (effect) and dispersion from a matrix or dataframe of numbers. The output value is smaller thant Cohen's d by a factor of 1.418 when comparing two Normal distributions. There is an option to normalize the effect size by that factor.
 #' @param x A numerical matrix with samples by column
 #' @param conds A vector denoting group membership
-#' @param corrected Whether to scale to Cohen's d or not, default is FALSE
+#' @param corrected Whether to scale to Cohen's d or not,
+#'   default is FALSE
 #' @return returns a vector of effect sizes
 #' @export
 #' @examples
