@@ -28,7 +28,7 @@
 		X axis value to plot from aldex.out. One of effect, diff.btw.
 	}
 	\item{sig.cutoff}{
-		Minimum effect size to color plotted points. Default 1.
+		Minimum effect size to color plotted points. Default is 0.05 for we.eBH. For sig.method="effect" change to >=1
 	}\item{cex}{
 		size of points to plot.
 	}
