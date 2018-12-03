@@ -19,13 +19,21 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loa
       grp=grp
     }
 
+    if(main == NULL){
+         plot.title.l = NULL
+         plot.title.s = NULL
+    } else {
+        plot.title.l = paste(main, "\nloadings", sep="")
+        plot.title.s = paste(main, "\nsamples", sep="")
+    }
+
 	mvar <- sum(pcx$sdev^2)
 	PC1 <- paste("PC1: ", round(sum(pcx$sdev[1]^2)/mvar, 3))
 	PC2 <- paste("PC2: ", round(sum(pcx$sdev[2]^2)/mvar, 3))
 
 	if(plot.loadings == TRUE){
 	  plot(pcx$rotation[,1], pcx$rotation[,2], pch=19, xlab=PC1, ylab=PC2,
-		col=rgb(0,0,0,0.1),  main=paste(main, "\nloadings", sep=""),
+		col=rgb(0,0,0,0.1),  main= plot.title.l,
 		xlim=c(min(pcx$rotation[,1]) , max(pcx$rotation[,1])) * 1.2,
 		ylim=c(min(pcx$rotation[,2]) , max(pcx$rotation[,2])) * 1.2
 	  )
@@ -35,7 +43,7 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loa
 	}
 
 	plot(pcx$x[,1], pcx$x[,2], pch=19, xlab=PC1, ylab=PC2,
-		col=rgb(0,0,0,0.1),  main=paste(main, "\nsamples", sep=""),
+		col=rgb(0,0,0,0.1),  main= plot.title.s,
 		xlim=c(min(pcx$x[,1]) *1.2, max(pcx$x[,1])) *1.2,
 		ylim=c(min(pcx$x[,2]) *1.2, max(pcx$x[,2])) *1.2
 		)
