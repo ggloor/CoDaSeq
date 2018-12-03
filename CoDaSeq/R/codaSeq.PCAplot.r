@@ -19,7 +19,7 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loa
       grp=grp
     }
 
-    if(main == NULL){
+    if(is.null(main)){
          plot.title.l = NULL
          plot.title.s = NULL
     } else {
