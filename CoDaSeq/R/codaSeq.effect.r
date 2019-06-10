@@ -40,6 +40,6 @@ private.mxad <- function(x,y){
 }
 
 private.dnef <- function(a,b){
-   return(median( (a - b)/ (private.mxad(a,b)) ) )
+   return(median( (a - b)/ (private.mxad(a,b)), na.rm=T ) )
 }
 

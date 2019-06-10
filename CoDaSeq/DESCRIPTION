@@ -1,9 +1,9 @@
 Package: CoDaSeq
 Type: Package
 Title: Compositional Data Analysis of High Throughput Sequencing
-Version: 0.99.3
-Date: 2018-11-03
-Author: Greg Gloor, Wallace Chan
+Version: 0.99.4
+Date: 2019-02-05
+Author: Greg Gloor, Andrew Fernandes, Jean Macklaim, Wallace Chan
 Maintainer: Greg Gloor <ggloor@uwo.ca>
 Depends: ALDEx2, zCompositions, car
 Suggests: testthat

@@ -167,8 +167,8 @@ codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
 conds <- c(rep("A", 15), rep("O", 15))
 
 f.x <- aldex.clr(f, conds)
-f.e <- aldex.effect(f.x, conds)
-f.t <- aldex.ttest(f.x, conds)
+f.e <- aldex.effect(f.x)
+f.t <- aldex.ttest(f.x)
 f.all <- data.frame(f.e,f.t)
 
 codaSeq.stripchart(aldex.out=f.all, group.table=hmpgenera, group.label="genus",
