@@ -4,7 +4,7 @@
 \alias{codaSeq.clr}
 \title{Center log-ratio function}
 \usage{
-codaSeq.clr(x, IQLR = FALSE, samples.by.row = TRUE)
+codaSeq.clr(x, IQLR = FALSE, aitch = FALSE, samples.by.row = TRUE)
 }
 \arguments{
 \item{x}{A matrix or dataframe with samples by row or column}
@@ -12,6 +12,10 @@ codaSeq.clr(x, IQLR = FALSE, samples.by.row = TRUE)
 \item{IQLR}{the geometric mean computed on all features if FALSE,
 or on the set of features with variance between the first and
 third quartile if TRUE. To be used when the data is not centered.}
+
+\item{aitch}{returns the values drawn from a digamma distribution using
+an uniformative prior. Approximates the expected value of the clr
+values and is much faster than using aldex.effect}
 
 \item{samples.by.row}{TRUE if samples by row, FALSE if samples by column}
 }
@@ -31,9 +35,9 @@ the natural logarithm is used.
 # get dataset from ALDEx2 package
 data(selex)
 # convert to clr with an uninformative prior
-use only the variables with mid-quartile variance as denominator
-output will have samples by rows
-selex.clr <- codaSeq.clr(selex + 0.5, IQLR=TRUE, samples.by.row=FALSE)
+# use only the variables with mid-quartile variance as denominator
+# output will have samples by rows
+selex.clr <- codaSeq.clr(selex + 0.5, IQLR=TRUE, aitch=TRUE, samples.by.row=FALSE)
 }
 \seealso{
 \code{\link{codaSeq.filter}},
@@ -42,5 +46,5 @@ selex.clr <- codaSeq.clr(selex + 0.5, IQLR=TRUE, samples.by.row=FALSE)
 \code{\link{codaSeq.phi}}
 }
 \author{
-Greg Gloor, Jean Macklaim, Wallace Chan
+Greg Gloor, Andrew Fernandes, Jean Macklaim, Wallace Chan
 }
