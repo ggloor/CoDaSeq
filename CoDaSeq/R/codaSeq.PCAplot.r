@@ -1,5 +1,5 @@
 codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loadings=TRUE,
-  grp.col=NULL, grp=NULL, loadings.grp=NULL, loadings.col=NULL, main=""){
+  grp.col=NULL, grp=NULL, loadings.grp=NULL, loadings.col=NULL, loadings.sym=19, main=""){
 
     if((attributes(pcx)$class == "prcomp") == FALSE) stop("please use the prcomp function for the SVD")
 
@@ -44,11 +44,19 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loa
     }
     if (!is.null(loadings.col)){
         if(is.null(loadings.col)) stop("please provide a vector of loadings colours")
-        if(length(loadings.col) != length(loadings.grp)) stop("number of loadings groups and number of colours must match")
+        if(length(loadings.col) != length(loadings.grp))
+            stop("number of loadings groups and number of colours must match")
+        if(loadings.sym == 19) {
+        	loadings.sym <- rep(19, length(loadings.col))
+        }
+        if(length(loadings.sym) != length(loadings.grp))
+            stop("number of loadings groups and number of symbols must match")
         scale.factor.1 <- max(abs(pcx$x[,1]))/max(abs(pcx$rotation[,1]))
         scale.factor.2 <- max(abs(pcx$x[,2]))/max(abs(pcx$rotation[,2]))
         for(j in 1:length(loadings.grp)){
- 	        points(pcx$rotation[,1][loadings.grp[[j]]]*scale.factor.1, pcx$rotation[,2][loadings.grp[[j]]]*scale.factor.2, pch=19, cex=0.5, col=loadings.col[j])
+ 	        points(pcx$rotation[,1][loadings.grp[[j]]]*scale.factor.1,
+ 	            pcx$rotation[,2][loadings.grp[[j]]]*scale.factor.2, pch=loadings.sym[j],
+ 	            cex=0.5, col=loadings.col[j])
 
         }
     }

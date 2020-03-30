@@ -8,7 +8,7 @@
 }
 \usage{
 	codaSeq.PCAplot(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loadings=TRUE,
-  grp.col=NULL, grp=NULL, loadings.grp=NULL, loadings.col=NULL, main="")
+  grp.col=NULL, grp=NULL, loadings.grp=NULL, loadings.col=NULL, loadings.sym=19, main="")
 }
 \arguments{
 	\item{pcx}{
@@ -34,6 +34,10 @@
 	}
 	\item{loadings.col}{
 		A vector of loadings colours. One per group.
+	}
+	\item{loadings.sym}{
+	    A value or vector of loadings symbols. Default is 19
+	    Any other value must be a vector that is the length of the color vector
 	}
 	\item{main}{
 		Plot title
