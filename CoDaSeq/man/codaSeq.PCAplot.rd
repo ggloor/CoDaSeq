@@ -8,7 +8,7 @@
 }
 \usage{
 	codaSeq.PCAplot(pcx, plot.groups=FALSE, plot.circles=FALSE, plot.loadings=TRUE,
-  grp.col=NULL, grp=NULL, loadings.grp=NULL, loadings.col=NULL, loadings.sym=19, main="")
+  grp.col=NULL, grp=NULL, loadings.grp=NULL, loadings.col=NULL, loadings.sym=19, main="", PC=c(1,2))
 }
 \arguments{
 	\item{pcx}{
@@ -41,6 +41,9 @@
 	}
 	\item{main}{
 		Plot title
+	}
+	\item{PC}{
+		Principle components to plot
 	}
 }
 \details{
