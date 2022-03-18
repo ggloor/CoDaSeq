@@ -75,6 +75,6 @@ codaSeq.clr <- function(x, IQLR=FALSE, aitch=FALSE, samples.by.row=TRUE){
         return(apply(x, margin, aitchison.mean))
     }
     if(samples.by.row == TRUE) x <- t(x)
-        return(apply(x, margin, aitchison.mean))
+        return(t(apply(x, margin, aitchison.mean)))
     }
 }

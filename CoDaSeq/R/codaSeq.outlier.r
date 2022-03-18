@@ -1,6 +1,8 @@
 #####################
 # Identifying sample outliers
 # returns list of sample outliers
+# this is now deprecated because it can be replaced by a 
+# much simpler version in progress
 #####
 
 codaSeq.outlier <- function(x, plot.me=TRUE, col=rgb(1,0,0,0.3)){
