@@ -5,14 +5,22 @@
 #' text or data points, include density plots above and beside the biplot for
 #' sample or loading groups, and add a legend to the biplot.
 #'
-#' @param pcx An object produced by `prcomp`. The input to `prcomp` must have
+#' @usage codaSeq.PCAplot(pcx, plot.groups = FALSE, plot.loadings = TRUE,
+#'                 plot.ellipses = NULL, plot.density = NULL, grp = NULL,
+#'                 grp.col = NULL, grp.sym = "text", grp.cex = 1,
+#'                 load.grp = NULL, load.col = NULL, load.sym = 19,
+#'                 load.cex = 0.5, PC = c(1, 2),plot.legend = NULL,
+#'                 leg.position = NULL, leg.xy = NULL, leg.cex = 0.55,
+#'                 leg.columns = 1, title = "")
+#'
+#' @param pcx An object produced by `prcomp()`. The input to `prcomp()` must have
 #'   samples in rows and features in columns.
 #' @param plot.groups Logical value indicating whether or not to colour samples
 #'   (i.e. `pcx$x`) by group membership. Will be drawn as text or symbols
 #'   depending on `grp.sym` (default: `FALSE`).
 #' @param plot.loadings Logical value indicating whether or not to plot loadings
 #'   (i.e. `pcx$rotations`). Will be drawn as text or symbols depending on
-#'   `loadings.sym` (default: `TRUE`).
+#'   `load.sym` (default: `TRUE`).
 #' @param plot.ellipses Character vector indicating whether or not to draw
 #'   confidence ellipses around sample *or* loading groups. Must be one of either
 #'   `"groups"` or `"loadings"`, or `NULL`.
@@ -30,17 +38,17 @@
 #'   or text on the biplot (default: `"text"`).
 #' @param grp.cex A numeric value indicating the relative size of the group
 #'   symbols or text to be plotted (default: `1`).
-#' @param loadings.grp A list of loading groups where each element is a vector
+#' @param load.grp A list of loading groups where each element is a vector
 #'   containing the indices of group members (default: `NULL`).
-#' @param loadings.col A vector the same length as `loadings.grp` containing
+#' @param load.col A vector the same length as `load.grp` containing
 #'   colours for the corresponding loading groups (default: `NULL`,
 #'   automatically set to `rgb(0,0,0,0.05)` if `plot.loadings= TRUE` and
-#'   `loadings.col= NULL`).
-#' @param loadings.sym Either a numeric the same length as `loadings.grp`
+#'   `load.col= NULL`).
+#' @param load.sym Either a numeric the same length as `load.grp`
 #'   containing only numbers 1-25 (corresponding to the `pch` argument of many
 #'   graphical functions), or  `"text"`. Indicates if loadings will be plotted
 #'   as symbols or text (default: `19`).
-#' @param loadings.cex A numeric value indicating the relative size of the
+#' @param load.cex A numeric value indicating the relative size of the
 #'   loading symbols or text to be plotted (default: `0.5`).
 #' @param PC A numeric vector of length = 2 indicating which prinicpal
 #'   components should be plotted (default: `c(1,2)`)
@@ -62,84 +70,102 @@
 #'   (default: `""`).
 #'
 #' @return Returns a plot showing samples and/or loadings as specified by the
-#'   user, which can be saved using one of the graphics devices (e.g. `png()`).
+#'   user, which can be saved using a graphics device (e.g. `png()`).
 #'
 #' @export
+#' @exportPattern ^codaSeq[.]*
+#' 
+#' @author Greg Gloor, Jean Macklaim, Andrew Fernandes, Wallace Chan, Scott Dos Santos
 #'
-#' @seealso [prcomp()],[ALDEx2]
+#' @seealso [ALDEx2::aldex()], [codaSeq.clr()], [prcomp()], [`ak_op`]
 #'
 #' @importFrom car dataEllipse
 #' @importFrom ggplot2 ggplot aes geom_density xlab ylab theme theme_bw
 #' @importFrom ggplot2 scale_color_manual scale_x_continuous scale_y_continuous
-#' @importFrom graphics points text abline par plot.new
+#' @importFrom ggplot2 element_blank
+#' @importFrom graphics points text abline par plot plot.new hist boxplot rect
+#' @importFrom graphics stripchart layout legend
 #' @importFrom grDevices rgb
+#' @importFrom stats var IQR median prcomp quantile
+#' @importFrom ALDEx2 getMonteCarloInstances numMCInstances
 #' @importFrom magrittr  %>%
 #' @importFrom dplyr arrange bind_rows
 #' @importFrom grid plotViewport pushViewport popViewport
 #' @importFrom gridBase baseViewports
 #' @importFrom zCompositions cmultRepl
-#' @importFrom stringr str_pad
+#' @importFrom viridis turbo
+#' @importFrom rlang .data
 #'
 #' @examples
-#' #generate test data: 100 features across 30 samples (split into two groups)
-#' ex.data<-as.data.frame(matrix(data = NA,ncol = 30,nrow=100))
-#' colnames(ex.data)<-c(paste0("Sample",rep("_A-",15),seq(1,15,1)),paste0("Sample",rep("_B-",15),seq(1,15,1)))
-#' rownames(ex.data)<-paste0("Gene_",stringr::str_pad(string = seq(1,100,1),width = 4,side = "left",pad = "0"))
-#'
-#' for(i in 1:30){
-#'   set.seed(123+i)
-#'   high<-sample(c(10000:50000),30)
-#'   med<-sample(c(1000:5000),30)
-#'   low<-sample(c(0:10),40,replace = TRUE,prob = c(0.5,rep(0.05,10)))
-#'   if(i %in% seq(1,15,1)){
-#'     ex.data[,i]<-c(high,med,low)
-#'   }else{ex.data[,i]<-c(low,high,med)
-#'   }
-#'   rm(list = c("i","high","med","low"))
+#' # load example HMP data from CoDaSeq package
+#' data("ak_op")      # feature table: 4347 OTU x 30 samples (15x ak, 15x op)
+#' data("hmpgenera")  # OTU taxonomy: 4546 OTU x 6 fields (phylum-genus)
+#' 
+#' # filter OTU tax table for only those present in feature table
+#' hmpgenera.filt<-hmpgenera[rownames(ak_op),]
+#' 
+#' # make a list of loading indices by species -> 45 genera + unknown
+#' otu.list<-list()
+#' for(i in levels(factor(hmpgenera.filt$genus))){
+#'   otu.list[[i]]<-which(hmpgenera.filt$genus==i)
+#'   rm(i)
 #' }
-#'
-#' # generate test metadata
-#' metadata<-as.data.frame(cbind(id=colnames(ex.data),cond=c(rep("Group1",15),rep("Group2",15))))
-#' gene.list<-as.data.frame(cbind(id=rownames(ex.data),taxa=paste0("Species",rep(1:10,each=10))))
-#'
-#' # get list of indices for groups and loadings
-#' ex.groups<-list()
-#' for(i in levels(factor(metadata$cond))){
-#'   ex.groups[[i]]<-which(metadata$cond==i)
-#' }
-#'
-#' ex.loadings<-list()
-#' for(j in levels(factor(gene.list$taxa))){
-#'   ex.loadings[[j]]<-which(gene.list$taxa==j)
-#' }
-#'
-#' # define group and loadings colours
-#' ex.groups.col<-c("deepskyblue","orange2")
-#' ex.load.col<-colorRampPalette(c("dodgerblue2","moccasin","maroon3"),space="rgb")(10)
-#'
-#' # impute zeros in test dataset
-#' clr.input<-cmultRepl(t(ex.data), method = "CZM",label = 0)
-#'
-#' # log-ratio transformation of data
-#' clr.data<-as.data.frame(apply(t(clr.input), 2, function(x) log(x) - mean(log(x))))
-#'
-#' # perform pca
+#' 
+#' # order list by number of OTU aligning to each genus
+#' otu.list.ord<-otu.list[order(sapply(otu.list, length), decreasing = TRUE)]
+#' # 20 genera represented by <=10 OTUs --> can collapse these
+#' 
+#' # remove genera to be collapsed, order this new list A-Z, capitalise
+#' # 'unknown' because I have OCD, then find indices of all features not
+#' # already present in the loading list and stick them in 'Other'
+#' genera.to.plot<-otu.list.ord[-c(27:46)]
+#' genera.to.plot<-genera.to.plot[order(names(genera.to.plot))]
+#' names(genera.to.plot)[25]<-"Unknown"
+#' genera.to.plot[["Other"]]<-setdiff(c(1:nrow(ak_op)),
+#'                                    unlist(genera.to.plot))
+#' 
+#' # get colours for these taxa (viridis palettes = colourblind friendly)
+#' otu.cols<-viridis::turbo(27)
+#' 
+#' # make list of group indices (samples already order in data frame)
+#' group.list<-list(Gingva=c(1:15), Plaque=c(16:30))
+#' group.cols<-c("dodgerblue", "orangered")
+#' 
+#' # Bayesian-multiplicative replacement of count-zeros 
+#' clr.input<-cmultRepl(t(ak_op),label = "0",
+#'                      method = "CZM",output = "p-counts")
+#' 
+#' # CLR-transformation using codaSeq.clr
+#' clr.data<-codaSeq.clr(t(clr.input), IQLR = FALSE,
+#'                       aitch = FALSE, samples.by.row = TRUE)
+#' 
+#' # perform PCA
 #' pca.data<-prcomp(t(clr.data))
-#'
-#' # plot samples as coloured symbols by groups w/ ellipses & loadings as text
-#' codaSeq.PCAplot(pca.data,plot.groups = TRUE,plot.loadings = TRUE,plot.ellipses = "groups",grp = ex.groups,
-#'                 grp.col = ex.groups.col,grp.sym = 19,grp.cex = 0.8, loadings.sym = "text" ,PC = c(1,2),
-#'                 plot.legend = "groups",leg.position = "bottomright",leg.columns = 1,title = "Groups")
-#'
-#' # plot samples as text with no colour, loadings as coloured symbols by group,
-#' # ellipses for loadings groups, density plots for loadings
-#' codaSeq.PCAplot(pca.data, plot.groups = FALSE, plot.loadings = TRUE, plot.ellipses = "loadings",
-#'                 plot.density = "loadings",loadings.grp = ex.loadings,loadings.col = ex.load.col,loadings.sym = 19,
-#'                 loadings.cex = 0.8,PC = c(1,2),plot.legend = "loadings",leg.position = "bottomright",
-#'                 leg.columns = 5,title = "Loadings")
+#' 
+#' # plot samples as symbols coloured by groups with uncoloured loadings
+#' codaSeq.PCAplot(pca.data, plot.groups = TRUE, plot.loadings = TRUE,
+#'                 plot.ellipses = "groups", plot.density = "groups", 
+#'                 grp = group.list, grp.col = group.cols,
+#'                 grp.sym = c(15,16), PC = c(1,2), plot.legend = "groups",
+#'                 leg.xy = c(-70,-32), leg.cex = 0.7, leg.columns = 1,
+#'                 title = "HMP data: keratinised gingiva vs. oral plaque")
+#' 
+#' # plot loadings as symbols (by genera) with samples as uncoloured text
+#' codaSeq.PCAplot(pca.data, plot.groups = FALSE, plot.loadings = TRUE,
+#'                 plot.ellipses = NULL, plot.density = "loadings",
+#'                 grp.cex = 0.6, load.grp = genera.to.plot,
+#'                 load.col = otu.cols, load.sym = 19, load.cex = 0.4, 
+#'                 PC = c(1,2), plot.legend = "loadings", leg.columns = 9, 
+#'                 leg.position = "bottom",
+#'                 title = "HMP data: keratinised gingiva vs. oral plaque")
+#' 
+#' # NOTE: plot device will draw a very 'stretched' legend. Recommended to
+#' # call `png("example.png",units="in",height=6,width=12,res=400)`, draw
+#' # the plot, with `codaSeq.PCAplot()`, then call `dev.off()` to save it 
+#' # as a high-res PNG with a properly drawn legend
 codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ellipses=NULL, plot.density=NULL,
-                            grp=NULL, grp.col=NULL, grp.sym="text", grp.cex= 1, loadings.grp=NULL, loadings.col=NULL,
-                            loadings.sym=19, loadings.cex=0.5, PC=c(1,2), plot.legend=NULL,
+                            grp=NULL, grp.col=NULL, grp.sym="text", grp.cex= 1, load.grp=NULL, load.col=NULL,
+                            load.sym=19, load.cex=0.5, PC=c(1,2), plot.legend=NULL,
                             leg.position=NULL, leg.xy=NULL, leg.cex=0.55, leg.columns=1, title=""){
 
   if((attributes(pcx)$class == "prcomp") == FALSE) stop("please use the prcomp function for the SVD")
@@ -151,14 +177,12 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
   if(!is.null(plot.legend) && !plot.legend  %in%  c("groups","loadings")) stop("'plot.legend' must be set to EITHER 'groups' or 'loadings'")
   if(!is.character(title) || !length(title)==1) stop("'title' must be a be a character vector of length = 1")
   if(!is.null(plot.legend) && !plot.legend %in% c("groups","loadings")) warning("'plot.legend' supplied but not set to either 'groups' or 'loadings'")
-  if(plot.groups==FALSE && plot.legend=="groups") warning("'plot.legend' set to 'groups' but 'plot.groups' set to FALSE")
-  if(plot.loadings==FALSE && plot.legend=="loadings") warning("'plot.legend' set to 'loadings' but 'plot.loadings' set to FALSE")
 
   if(!is.null(plot.density)){
     if(length(plot.density)!=1) stop("'plot.density' must be a character vector of length = 1")
     if(!plot.density %in% c("groups","loadings")) stop("'plot.density' must be set to either 'groups' or 'loadings'")
     if(plot.density=="groups" && is.null(grp)) stop("please supply a list of sample groupings")
-    if(plot.density=="loadings" && is.null(loadings.grp)) stop("please supply a list of loading vectors")
+    if(plot.density=="loadings" && is.null(load.grp)) stop("please supply a list of loading vectors")
     if(plot.groups==TRUE && is.list(grp)==FALSE) stop("please ensure 'grp' is a list")
 
     mvar <- sum(pcx$sdev^2)
@@ -179,72 +203,72 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
     limits<-par("usr")
 
     if(plot.loadings==TRUE){
-      if(is.null(loadings.col)){
+      if(is.null(load.col)){
         if(plot.legend=="loadings") warning("no loadings colours specified: will not plot legend for loadings")
-        if(!is.numeric(loadings.cex)) stop("'loadings.cex' must be numeric")
-        if(length(loadings.cex)!=1) stop("'loadings.cex' must be a single numeric value")
-        if(!is.numeric(loadings.sym) && !is.character(loadings.sym)) stop("'loadings.sym' must be either numeric or a character vector equal to 'text'")
-        if(is.numeric(loadings.sym) && length(loadings.sym)!=1) stop("'loadings.sym' must be a single numeric value")
-        if(is.numeric(loadings.sym) && !loadings.sym  %in% seq(0,25,1)) stop("'loadings.sym' must be a numeric value between 0 and 25")
-        if(is.character(loadings.sym) && length(loadings.sym)!=1 && loadings.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
+        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
+        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
+        if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
+        if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
+        if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
         scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
         scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
 
-        if(is.numeric(loadings.sym)){
+        if(is.numeric(load.sym)){
           points(pcx$rotation[,PC[1]]*scale.factor.1,
-                 pcx$rotation[,PC[2]]*scale.factor.2, pch=loadings.sym,
-                 col=rgb(0,0,0,0.05), cex=loadings.cex)
-        }else if(is.character(loadings.sym) && loadings.sym=="text"){
+                 pcx$rotation[,PC[2]]*scale.factor.2, pch=load.sym,
+                 col=rgb(0,0,0,0.05), cex=load.cex)
+        }else if(is.character(load.sym) && load.sym=="text"){
           text(pcx$rotation[,PC[1]]*scale.factor.1,
                pcx$rotation[,PC[2]]*scale.factor.2,
                labels=rownames(pcx$rotation),col=rgb(0,0,0,0.5),
-               cex=loadings.cex)
+               cex=load.cex)
         }
       }
 
-      if(!is.null(loadings.col)){
-        if(is.null(loadings.col)) stop("please provide a vector of loadings colours")
-        if(length(loadings.col) >1 && is.list(loadings.grp)==FALSE) stop("multiple loadings colours supplied, but 'loadings.grp' is not a list")
-        if(length(loadings.col) >1 && length(loadings.col) != length(loadings.grp)) stop("number of loadings groups and number of loading colours must match")
-        if(!is.numeric(loadings.sym) && !is.character(loadings.sym)) stop("'loadings.sym' must be either numeric or a character vector equal to 'text'")
-        if(is.numeric(loadings.sym) && length(loadings.sym)!=1) stop("'loadings.sym' must be a single numeric value")
-        if(is.numeric(loadings.sym) && !loadings.sym  %in% seq(0,25,1)) stop("'loadings.sym' must be a numeric value between 0 and 25")
-        if(is.character(loadings.sym) && length(loadings.sym)!=1 && loadings.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
+      if(!is.null(load.col)){
+        if(is.null(load.col)) stop("please provide a vector of loadings colours")
+        if(length(load.col) >1 && is.list(load.grp)==FALSE) stop("multiple loadings colours supplied, but 'load.grp' is not a list")
+        if(length(load.col) >1 && length(load.col) != length(load.grp)) stop("number of loadings groups and number of loading colours must match")
+        if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
+        if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
+        if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
+        if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
 
-        if(is.numeric(loadings.sym)){
-          loadings.sym <- rep(loadings.sym, length(loadings.col))
+        if(is.numeric(load.sym)){
+          load.sym <- rep(load.sym, length(load.col))
         }
-        if(is.null(loadings.grp)){
-          loadings.grp=list(c(1:nrow(pcx$rotation)))
+        if(is.null(load.grp)){
+          load.grp=list(c(1:nrow(pcx$rotation)))
         }
-        if(is.numeric(loadings.grp) && length(loadings.sym) != length(loadings.grp)) stop("number of loadings groups and number of symbols must match")
+        if(is.numeric(load.grp) && length(load.sym) != length(load.grp)) stop("number of loadings groups and number of symbols must match")
 
         scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
         scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
-        if(!is.numeric(loadings.cex)) stop("'loadings.cex' must be numeric")
-        if(length(loadings.cex)!=1) stop("'loadings.cex' must be a single numeric value")
-        if(is.numeric(loadings.sym)){
-          for(j in 1:length(loadings.grp)){
-            points(pcx$rotation[,PC[1]][loadings.grp[[j]]]*scale.factor.1,
-                   pcx$rotation[,PC[2]][loadings.grp[[j]]]*scale.factor.2,
-                   pch=loadings.sym[j],cex=loadings.cex, col=loadings.col[j])
+        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
+        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        if(is.numeric(load.sym)){
+          for(j in 1:length(load.grp)){
+            points(pcx$rotation[,PC[1]][load.grp[[j]]]*scale.factor.1,
+                   pcx$rotation[,PC[2]][load.grp[[j]]]*scale.factor.2,
+                   pch=load.sym[j],cex=load.cex, col=load.col[j])
           }
-        }else if(loadings.sym=="text"){
-          for(j in 1:length(loadings.grp)){
-            text(pcx$rotation[,PC[1]][loadings.grp[[j]]]*scale.factor.1,
-                 pcx$rotation[,PC[2]][loadings.grp[[j]]]*scale.factor.2,
-                 labels=rownames(pcx$rotation)[loadings.grp[[j]]],
-                 cex=loadings.cex,col=loadings.col[j])
+        }else if(load.sym=="text"){
+          for(j in 1:length(load.grp)){
+            text(pcx$rotation[,PC[1]][load.grp[[j]]]*scale.factor.1,
+                 pcx$rotation[,PC[2]][load.grp[[j]]]*scale.factor.2,
+                 labels=rownames(pcx$rotation)[load.grp[[j]]],
+                 cex=load.cex,col=load.col[j])
           }
         }
 
         if(!is.null(plot.ellipses) && plot.ellipses=="loadings"){
-          for(l in 1:length(loadings.grp)){
-            dataEllipse(pcx$rotation[,PC[1]][loadings.grp[[l]]]*scale.factor.1,
-                        pcx$rotation[,PC[2]][loadings.grp[[l]]]*scale.factor.2,
-                        lwd = 1, levels=c(0.67), center.cex=FALSE,
-                        plot.points=FALSE, add=TRUE, col=loadings.col[l],
-                        fill = TRUE, fill.alpha = 0.25)
+          for(l in 1:length(load.grp)){
+            car::dataEllipse(pcx$rotation[,PC[1]][load.grp[[l]]]*scale.factor.1,
+                             pcx$rotation[,PC[2]][load.grp[[l]]]*scale.factor.2,
+                             lwd = 1, levels=c(0.67), center.cex=FALSE,
+                             plot.points=FALSE, add=TRUE, col=load.col[l],
+                             fill = TRUE, fill.alpha = 0.25)
           }
         }
 
@@ -253,18 +277,18 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
           if(!is.null(leg.position) & !is.null(leg.xy)) stop("please specify ONE of either 'leg.pos' or 'leg.xy'")
           if(is.null(leg.columns)) stop("please specify the number of columns in the legend")
           if(!is.numeric(leg.columns)) stop("'leg.cols' must be numeric")
-          if(is.null(names(loadings.grp))) stop("please ensure group names in your list are not NULL using names()")
+          if(is.null(names(load.grp))) stop("please ensure group names in your list are not NULL using names()")
           if(!is.null(leg.position)){
-            legend(leg.position,legend = names(loadings.grp),
-                   col=loadings.col, cex=leg.cex,ncol= leg.columns,pch = if(is.character(loadings.sym)){
-                     rep("-",length(loadings.grp))
-                   }else loadings.sym)
+            legend(leg.position,legend = names(load.grp),
+                   col=load.col, cex=leg.cex,ncol= leg.columns,pch = if(is.character(load.sym)){
+                     rep("-",length(load.grp))
+                   }else load.sym)
           }else {
             if(length(leg.xy)!=2) stop("'leg.xy' must be a numeric vector of length = 2, specifying x and y coordinates, respectively")
-            legend(leg.xy[1],leg.xy[2],legend = names(loadings.grp),
-                   col=loadings.col, cex=leg.cex,ncol= leg.columns,pch = if(is.character(loadings.sym)){
-                     rep("-",length(loadings.sym))
-                   }else loadings.sym)
+            legend(leg.xy[1],leg.xy[2],legend = names(load.grp),
+                   col=load.col, cex=leg.cex,ncol= leg.columns,pch = if(is.character(load.sym)){
+                     rep("-",length(load.sym))
+                   }else load.sym)
           }
         }
       }
@@ -320,10 +344,10 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
 
       if(!is.null(plot.ellipses) && plot.ellipses=="groups"){
         for(l in 1:length(grp)){
-          dataEllipse(pcx$x[,PC[1]][grp[[l]]],pcx$x[,PC[2]][grp[[l]]],
-                      lwd = 1, levels=c(0.67), center.cex=FALSE,
-                      plot.points=FALSE, add=TRUE,col=grp.col[l],
-                      fill = TRUE, fill.alpha = 0.25)
+          car::dataEllipse(pcx$x[,PC[1]][grp[[l]]],pcx$x[,PC[2]][grp[[l]]],
+                           lwd = 1, levels=c(0.67), center.cex=FALSE,
+                           plot.points=FALSE, add=TRUE,col=grp.col[l],
+                           fill = TRUE, fill.alpha = 0.25)
         }
       }
 
@@ -357,11 +381,11 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
       }
 
       cols.ordered<-as.data.frame(cbind(name=names(grp),col=grp.col)) %>%
-        arrange(name)
+        arrange(.data$name)
       pca.vals.group<-bind_rows(list.group,.id = "group")
 
       dens.pc1<-pca.vals.group%>%
-        ggplot(aes(x=points.pc1,col=group))+
+        ggplot(aes(x=points.pc1,col=.data$group))+
         geom_density(show.legend = FALSE)+
         xlab("")+ylab("Density")+
         scale_color_manual(values=cols.ordered$col)+
@@ -371,7 +395,7 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
         theme(axis.text.y = element_blank())+theme(axis.ticks.y = element_blank())
 
       dens.pc2<-pca.vals.group%>%
-        ggplot(aes(y=points.pc2,col=group))+
+        ggplot(aes(y=points.pc2,col=.data$group))+
         geom_density(show.legend = FALSE)+
         xlab("Density")+ylab("")+
         scale_color_manual(values=cols.ordered$col)+
@@ -395,19 +419,19 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
 
     } else if(plot.density=="loadings"){
       list.loadings<-list()
-      for (k in 1:length(loadings.grp)) {
-        points.pc1<-pcx$rotation[,1][loadings.grp[[k]]]*scale.factor.1
-        points.pc2<-pcx$rotation[,2][loadings.grp[[k]]]*scale.factor.2
-        list.loadings[[names(loadings.grp)[k]]]<-as.data.frame(cbind(points.pc1,points.pc2))
+      for (k in 1:length(load.grp)) {
+        points.pc1<-pcx$rotation[,1][load.grp[[k]]]*scale.factor.1
+        points.pc2<-pcx$rotation[,2][load.grp[[k]]]*scale.factor.2
+        list.loadings[[names(load.grp)[k]]]<-as.data.frame(cbind(points.pc1,points.pc2))
       }
 
-      cols.ordered<-as.data.frame(cbind(name=names(loadings.grp),col=loadings.col)) %>%
-        arrange(name)
+      cols.ordered<-as.data.frame(cbind(name=names(load.grp),col=load.col)) %>%
+        arrange(.data$name)
       pca.vals.loadings<-bind_rows(list.loadings,.id = "group")
 
 
       dens.pc1<-pca.vals.loadings%>%
-        ggplot(aes(x=points.pc1,col=group))+
+        ggplot(aes(x=points.pc1,col=.data$group))+
         geom_density(show.legend = FALSE)+
         xlab("")+ylab("Density")+
         scale_color_manual(values=cols.ordered$col)+
@@ -417,7 +441,7 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
         theme(axis.text.y = element_blank())+theme(axis.ticks.y = element_blank())
 
       dens.pc2<-pca.vals.loadings%>%
-        ggplot(aes(y=points.pc2,col=group))+
+        ggplot(aes(y=points.pc2,col=.data$group))+
         geom_density(show.legend = FALSE)+
         xlab("Density")+ylab("")+
         scale_color_manual(values=cols.ordered$col)+
@@ -455,70 +479,70 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
     abline(v=0, lty=2, lwd=2, col=rgb(0,0,0,0.3))
 
     if(plot.loadings==TRUE){
-      if(is.null(loadings.col)){
+      if(is.null(load.col)){
         if(!is.null(plot.legend) && plot.legend=="loadings") warning("no loadings colours specified: will not plot legend for loadings")
         scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
         scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
-        if(!is.numeric(loadings.cex)) stop("'loadings.cex' must be numeric")
-        if(length(loadings.cex)!=1) stop("'loadings.cex' must be a single numeric value")
-        if(!is.numeric(loadings.sym) && !is.character(loadings.sym)) stop("'loadings.sym' must be either numeric or a character vector equal to 'text'")
-        if(is.numeric(loadings.sym) && length(loadings.sym)!=1) stop("'loadings.sym' must be a single numeric value")
-        if(is.numeric(loadings.sym) && !loadings.sym  %in% seq(0,25,1)) stop("'loadings.sym' must be a numeric value between 0 and 25")
-        if(is.character(loadings.sym) && length(loadings.sym)!=1 && loadings.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
-        if(is.numeric(loadings.sym)){
-          points(pcx$rotation[,PC[1]]*scale.factor.1, pcx$rotation[,PC[2]]*scale.factor.2, pch=loadings.sym,
-                 col=rgb(0,0,0,0.05), cex=loadings.cex)
-        }else if(is.character(loadings.sym) && loadings.sym=="text"){
+        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
+        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
+        if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
+        if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
+        if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
+        if(is.numeric(load.sym)){
+          points(pcx$rotation[,PC[1]]*scale.factor.1, pcx$rotation[,PC[2]]*scale.factor.2, pch=load.sym,
+                 col=rgb(0,0,0,0.05), cex=load.cex)
+        }else if(is.character(load.sym) && load.sym=="text"){
           text(pcx$rotation[,PC[1]]*scale.factor.1,
                pcx$rotation[,PC[2]]*scale.factor.2,
                labels=rownames(pcx$rotation),col=rgb(0,0,0,0.5),
-               cex=loadings.cex)
+               cex=load.cex)
         }
       }
 
-      if(!is.null(loadings.col)){
-        if(is.null(loadings.col)) stop("please provide a vector of loadings colours")
-        if(length(loadings.col) >1 && is.list(loadings.grp)==FALSE) stop("multiple loadings colours supplied, but 'loadings.grp' is not a list")
-        if(length(loadings.col) >1 && length(loadings.col) != length(loadings.grp)) stop("number of loadings groups and number of colours must match")
+      if(!is.null(load.col)){
+        if(is.null(load.col)) stop("please provide a vector of loadings colours")
+        if(length(load.col) >1 && is.list(load.grp)==FALSE) stop("multiple loadings colours supplied, but 'load.grp' is not a list")
+        if(length(load.col) >1 && length(load.col) != length(load.grp)) stop("number of loadings groups and number of colours must match")
 
-        if(!is.numeric(loadings.sym) && !is.character(loadings.sym)) stop("'loadings.sym' must be either numeric or a character vector equal to 'text'")
-        if(is.numeric(loadings.sym) && length(loadings.sym)!=1) stop("'loadings.sym' must be a single numeric value")
-        if(is.numeric(loadings.sym) && !loadings.sym  %in% seq(0,25,1)) stop("'loadings.sym' must be a numeric value between 0 and 25")
-        if(is.character(loadings.sym) && length(loadings.sym)!=1 && loadings.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
+        if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
+        if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
+        if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
+        if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
 
-        if(is.numeric(loadings.sym)){
-          loadings.sym <- rep(loadings.sym, length(loadings.col))
+        if(is.numeric(load.sym)){
+          load.sym <- rep(load.sym, length(load.col))
         }
-        if(is.null(loadings.grp)){
-          loadings.grp=list(c(1:nrow(pcx$rotation)))
+        if(is.null(load.grp)){
+          load.grp=list(c(1:nrow(pcx$rotation)))
         }
-        if(is.numeric(loadings.sym) && length(loadings.sym) != length(loadings.grp)) stop("number of loadings groups and number of symbols must match")
+        if(is.numeric(load.sym) && length(load.sym) != length(load.grp)) stop("number of loadings groups and number of symbols must match")
 
         scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
         scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
-        if(!is.numeric(loadings.cex)) stop("'loadings.cex' must be numeric")
-        if(length(loadings.cex)!=1) stop("'loadings.cex' must be a single numeric value")
-        if(is.numeric(loadings.sym)){
-          for(j in 1:length(loadings.grp)){
-            points(pcx$rotation[,PC[1]][loadings.grp[[j]]]*scale.factor.1,
-                   pcx$rotation[,PC[2]][loadings.grp[[j]]]*scale.factor.2,
-                   pch=loadings.sym[j],cex=loadings.cex, col=loadings.col[j])
+        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
+        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        if(is.numeric(load.sym)){
+          for(j in 1:length(load.grp)){
+            points(pcx$rotation[,PC[1]][load.grp[[j]]]*scale.factor.1,
+                   pcx$rotation[,PC[2]][load.grp[[j]]]*scale.factor.2,
+                   pch=load.sym[j],cex=load.cex, col=load.col[j])
           }
-        }else if(loadings.sym=="text"){
-          for(j in 1:length(loadings.grp)){
-            text(pcx$rotation[,PC[1]][loadings.grp[[j]]]*scale.factor.1,
-                 pcx$rotation[,PC[2]][loadings.grp[[j]]]*scale.factor.2,
-                 labels=rownames(pcx$rotation)[loadings.grp[[j]]],
-                 cex=loadings.cex, col=loadings.col[j])
+        }else if(load.sym=="text"){
+          for(j in 1:length(load.grp)){
+            text(pcx$rotation[,PC[1]][load.grp[[j]]]*scale.factor.1,
+                 pcx$rotation[,PC[2]][load.grp[[j]]]*scale.factor.2,
+                 labels=rownames(pcx$rotation)[load.grp[[j]]],
+                 cex=load.cex, col=load.col[j])
           }
         }
 
         if(!is.null(plot.ellipses) && plot.ellipses=="loadings"){
-          for(l in 1:length(loadings.grp)){
-            dataEllipse(pcx$rotation[,PC[1]][loadings.grp[[l]]]*scale.factor.1,
-                        pcx$rotation[,PC[2]][loadings.grp[[l]]]*scale.factor.2,
+          for(l in 1:length(load.grp)){
+            dataEllipse(pcx$rotation[,PC[1]][load.grp[[l]]]*scale.factor.1,
+                        pcx$rotation[,PC[2]][load.grp[[l]]]*scale.factor.2,
                         lwd = 1, levels=c(0.67), center.cex=FALSE,
-                        plot.points=FALSE, add=TRUE, col=loadings.col[l],
+                        plot.points=FALSE, add=TRUE, col=load.col[l],
                         fill = TRUE, fill.alpha = 0.25)
           }
         }
@@ -528,18 +552,18 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
           if(!is.null(leg.position) & !is.null(leg.xy)) stop("please specify ONE of either 'leg.pos' or 'leg.xy'")
           if(is.null(leg.columns)) stop("please specify the number of columns in the legend")
           if(!is.numeric(leg.columns)) stop("'leg.cols' must be numeric")
-          if(is.null(names(loadings.grp))) stop("please ensure group names in your list are not NULL using names()")
+          if(is.null(names(load.grp))) stop("please ensure group names in your list are not NULL using names()")
           if(!is.null(leg.position)){
-            legend(leg.position,legend = names(loadings.grp),
-                   col=loadings.col, cex=leg.cex,ncol= leg.columns, pch=if(is.character(loadings.sym)){
-                     rep("-",length(loadings.grp))
-                   }else loadings.sym)
+            legend(leg.position,legend = names(load.grp),
+                   col=load.col, cex=leg.cex,ncol= leg.columns, pch=if(is.character(load.sym)){
+                     rep("-",length(load.grp))
+                   }else load.sym)
           }else {
             if(length(leg.xy)!=2) stop("'leg.xy' must be a numeric vector of length = 2, specifying x and y coordinates, respectively")
-            legend(leg.xy[1],leg.xy[2],legend = names(loadings.grp),
-                   col=loadings.col, cex=leg.cex,ncol= leg.columns,pch=if(is.character(loadings.sym)){
-                     rep("-",length(loadings.grp))
-                   }else loadings.sym)
+            legend(leg.xy[1],leg.xy[2],legend = names(load.grp),
+                   col=load.col, cex=leg.cex,ncol= leg.columns,pch=if(is.character(load.sym)){
+                     rep("-",length(load.grp))
+                   }else load.sym)
           }
         }
       }

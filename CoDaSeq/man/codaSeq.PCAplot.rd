@@ -4,173 +4,171 @@
 \alias{codaSeq.PCAplot}
 \title{Visualise and customise a PCA biplot}
 \usage{
-codaSeq.PCAplot(
-  pcx,
-  plot.groups = FALSE,
-  plot.loadings = TRUE,
-  plot.ellipses = NULL,
-  plot.density = NULL,
-  grp = NULL,
-  grp.col = NULL,
-  grp.sym = "text",
-  grp.cex = 1,
-  loadings.grp = NULL,
-  loadings.col = NULL,
-  loadings.sym = 19,
-  loadings.cex = 0.5,
-  PC = c(1, 2),
-  plot.legend = NULL,
-  leg.position = NULL,
-  leg.xy = NULL,
-  leg.cex = 0.55,
-  leg.columns = 1,
-  title = ""
-)
+codaSeq.PCAplot(pcx, plot.groups = FALSE, plot.loadings = TRUE,
+                plot.ellipses = NULL, plot.density = NULL, grp = NULL,
+                grp.col = NULL, grp.sym = "text", grp.cex = 1,
+                load.grp = NULL, load.col = NULL, load.sym = 19,
+                load.cex = 0.5, PC = c(1, 2),plot.legend = NULL,
+                leg.position = NULL, leg.xy = NULL, leg.cex = 0.55,
+                leg.columns = 1, title = "")
 }
 \arguments{
-\item{pcx}{An object produced by `prcomp`. The input to `prcomp` must have
+\item{pcx}{An object produced by \code{prcomp()}. The input to \code{prcomp()} must have
 samples in rows and features in columns.}
 
 \item{plot.groups}{Logical value indicating whether or not to colour samples
-(i.e. `pcx$x`) by group membership. Will be drawn as text or symbols
-depending on `grp.sym` (default: `FALSE`).}
+(i.e. \code{pcx$x}) by group membership. Will be drawn as text or symbols
+depending on \code{grp.sym} (default: \code{FALSE}).}
 
 \item{plot.loadings}{Logical value indicating whether or not to plot loadings
-(i.e. `pcx$rotations`). Will be drawn as text or symbols depending on
-`loadings.sym` (default: `TRUE`).}
+(i.e. \code{pcx$rotations}). Will be drawn as text or symbols depending on
+\code{load.sym} (default: \code{TRUE}).}
 
 \item{plot.ellipses}{Character vector indicating whether or not to draw
-confidence ellipses around sample *or* loading groups. Must be one of either
-`"groups"` or `"loadings"`, or `NULL`.}
+confidence ellipses around sample \emph{or} loading groups. Must be one of either
+\code{"groups"} or \code{"loadings"}, or \code{NULL}.}
 
 \item{plot.density}{Logical value indicating whether or not to draw density
 plots for the specified principal components above and beside the main
 biplot.}
 
 \item{grp}{A list of groups where each element is a vector containing the
-indices of group members (default: `NULL`).}
+indices of group members (default: \code{NULL}).}
 
-\item{grp.col}{A vector of the same length as `grp` containing colours for
-the corresponding groups (default: `NULL`, automatically set to `"black"`
-if `plot.groups= TRUE` and `grp.col= NULL`).}
+\item{grp.col}{A vector of the same length as \code{grp} containing colours for
+the corresponding groups (default: \code{NULL}, automatically set to \code{"black"}
+if \code{plot.groups= TRUE} and \code{grp.col= NULL}).}
 
-\item{grp.sym}{Either a numeric vector the same length as `grp` containing
-only numbers 1-25 (corresponding to the `pch` argument of many graphical
-functions), or `"text"`. Indicates if samples will be plotted as symbols
-or text on the biplot (default: `"text"`).}
+\item{grp.sym}{Either a numeric vector the same length as \code{grp} containing
+only numbers 1-25 (corresponding to the \code{pch} argument of many graphical
+functions), or \code{"text"}. Indicates if samples will be plotted as symbols
+or text on the biplot (default: \code{"text"}).}
 
 \item{grp.cex}{A numeric value indicating the relative size of the group
-symbols or text to be plotted (default: `1`).}
+symbols or text to be plotted (default: \code{1}).}
 
-\item{loadings.grp}{A list of loading groups where each element is a vector
-containing the indices of group members (default: `NULL`).}
+\item{load.grp}{A list of loading groups where each element is a vector
+containing the indices of group members (default: \code{NULL}).}
 
-\item{loadings.col}{A vector the same length as `loadings.grp` containing
-colours for the corresponding loading groups (default: `NULL`,
-automatically set to `rgb(0,0,0,0.05)` if `plot.loadings= TRUE` and
-`loadings.col= NULL`).}
+\item{load.col}{A vector the same length as \code{load.grp} containing
+colours for the corresponding loading groups (default: \code{NULL},
+automatically set to \code{rgb(0,0,0,0.05)} if \code{plot.loadings= TRUE} and
+\code{load.col= NULL}).}
 
-\item{loadings.sym}{Either a numeric the same length as `loadings.grp`
-containing only numbers 1-25 (corresponding to the `pch` argument of many
-graphical functions), or  `"text"`. Indicates if loadings will be plotted
-as symbols or text (default: `19`).}
+\item{load.sym}{Either a numeric the same length as \code{load.grp}
+containing only numbers 1-25 (corresponding to the \code{pch} argument of many
+graphical functions), or  \code{"text"}. Indicates if loadings will be plotted
+as symbols or text (default: \code{19}).}
 
-\item{loadings.cex}{A numeric value indicating the relative size of the
-loading symbols or text to be plotted (default: `0.5`).}
+\item{load.cex}{A numeric value indicating the relative size of the
+loading symbols or text to be plotted (default: \code{0.5}).}
 
 \item{PC}{A numeric vector of length = 2 indicating which prinicpal
-components should be plotted (default: `c(1,2)`)}
+components should be plotted (default: \code{c(1,2)})}
 
-\item{plot.legend}{A character string equal to either `"groups"` or
-`"loadings"`, or NULL, indicating whether to draw a legend for groups,
-loadings or neither (default: `NULL`).}
+\item{plot.legend}{A character string equal to either \code{"groups"} or
+\code{"loadings"}, or NULL, indicating whether to draw a legend for groups,
+loadings or neither (default: \code{NULL}).}
 
 \item{leg.position}{A character string equal to one of the following:
-`"topleft"`, `"top"`, `"topright"`, `"right"`, `"bottomright"`, `"bottom"`,
-`"bottomleft"`, `"left"`, or `"center"`. Cannot be called in conjunction
-with `leg.xy` (default: `NULL`).}
+\code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"}, \code{"bottomright"}, \code{"bottom"},
+\code{"bottomleft"}, \code{"left"}, or \code{"center"}. Cannot be called in conjunction
+with \code{leg.xy} (default: \code{NULL}).}
 
 \item{leg.xy}{A numeric vector of length = 2, specifying the x and y
 coordinates at which to draw the top-right corner of the legend box. Cannot
-be called in conjunctionn with `leg.position` (default: `NULL`)}
+be called in conjunctionn with \code{leg.position} (default: \code{NULL})}
 
 \item{leg.cex}{A numeric value indicating the relative size of the legend
-text (default: `0.55`).}
+text (default: \code{0.55}).}
 
 \item{leg.columns}{A numeric calue indicating the number of columns to split
-legend items into (default: `1`)}
+legend items into (default: \code{1})}
 
 \item{title}{A character string containing the desired title of the biplot
-(default: `""`).}
+(default: \code{""}).}
 }
 \value{
 Returns a plot showing samples and/or loadings as specified by the
-  user, which can be saved using one of the graphics devices (e.g. `png()`).
+user, which can be saved using a graphics device (e.g. \code{png()}).
 }
 \description{
-This function takes an object produced by `prcomp` and produces a biplot which
+This function takes an object produced by \code{prcomp} and produces a biplot which
 can be customise to show sample or loading groups, plot samples or loadings as
 text or data points, include density plots above and beside the biplot for
 sample or loading groups, and add a legend to the biplot.
 }
 \examples{
-#generate test data: 100 features across 30 samples (split into two groups)
-ex.data<-as.data.frame(matrix(data = NA,ncol = 30,nrow=100))
-colnames(ex.data)<-c(paste0("Sample",rep("_A-",15),seq(1,15,1)),paste0("Sample",rep("_B-",15),seq(1,15,1)))
-rownames(ex.data)<-paste0("Gene_",stringr::str_pad(string = seq(1,100,1),width = 4,side = "left",pad = "0"))
+# load example HMP data from CoDaSeq package
+data("ak_op")      # feature table: 4347 OTU x 30 samples (15x ak, 15x op)
+data("hmpgenera")  # OTU taxonomy: 4546 OTU x 6 fields (phylum-genus)
 
-for(i in 1:30){
-  set.seed(123+i)
-  high<-sample(c(10000:50000),30)
-  med<-sample(c(1000:5000),30)
-  low<-sample(c(0:10),40,replace = TRUE,prob = c(0.5,rep(0.05,10)))
-  if(i \%in\% seq(1,15,1)){
-    ex.data[,i]<-c(high,med,low)
-  }else{ex.data[,i]<-c(low,high,med)
-  }
-  rm(list = c("i","high","med","low"))
+# filter OTU tax table for only those present in feature table
+hmpgenera.filt<-hmpgenera[rownames(ak_op),]
+
+# make a list of loading indices by species -> 45 genera + unknown
+otu.list<-list()
+for(i in levels(factor(hmpgenera.filt$genus))){
+  otu.list[[i]]<-which(hmpgenera.filt$genus==i)
+  rm(i)
 }
 
-# generate test metadata
-metadata<-as.data.frame(cbind(id=colnames(ex.data),cond=c(rep("Group1",15),rep("Group2",15))))
-gene.list<-as.data.frame(cbind(id=rownames(ex.data),taxa=paste0("Species",rep(1:10,each=10))))
+# order list by number of OTU aligning to each genus
+otu.list.ord<-otu.list[order(sapply(otu.list, length), decreasing = TRUE)]
+# 20 genera represented by <=10 OTUs --> can collapse these
 
-# get list of indices for groups and loadings
-ex.groups<-list()
-for(i in levels(factor(metadata$cond))){
-  ex.groups[[i]]<-which(metadata$cond==i)
-}
+# remove genera to be collapsed, order this new list A-Z, capitalise
+# 'unknown' because I have OCD, then find indices of all features not
+# already present in the loading list and stick them in 'Other'
+genera.to.plot<-otu.list.ord[-c(27:46)]
+genera.to.plot<-genera.to.plot[order(names(genera.to.plot))]
+names(genera.to.plot)[25]<-"Unknown"
+genera.to.plot[["Other"]]<-setdiff(c(1:nrow(ak_op)),
+                                   unlist(genera.to.plot))
 
-ex.loadings<-list()
-for(j in levels(factor(gene.list$taxa))){
-  ex.loadings[[j]]<-which(gene.list$taxa==j)
-}
+# get colours for these taxa (viridis palettes = colourblind friendly)
+otu.cols<-viridis::turbo(27)
 
-# define group and loadings colours
-ex.groups.col<-c("deepskyblue","orange2")
-ex.load.col<-colorRampPalette(c("dodgerblue2","moccasin","maroon3"),space="rgb")(10)
+# make list of group indices (samples already order in data frame)
+group.list<-list(Gingva=c(1:15), Plaque=c(16:30))
+group.cols<-c("dodgerblue", "orangered")
 
-# impute zeros in test dataset
-clr.input<-cmultRepl(t(ex.data), method = "CZM",label = 0)
+# Bayesian-multiplicative replacement of count-zeros 
+clr.input<-cmultRepl(t(ak_op),label = "0",
+                     method = "CZM",output = "p-counts")
 
-# log-ratio transformation of data
-clr.data<-as.data.frame(apply(t(clr.input), 2, function(x) log(x) - mean(log(x))))
+# CLR-transformation using codaSeq.clr
+clr.data<-codaSeq.clr(t(clr.input), IQLR = FALSE,
+                      aitch = FALSE, samples.by.row = TRUE)
 
-# perform pca
+# perform PCA
 pca.data<-prcomp(t(clr.data))
 
-# plot samples as coloured symbols by groups w/ ellipses & loadings as text
-codaSeq.PCAplot(pca.data,plot.groups = TRUE,plot.loadings = TRUE,plot.ellipses = "groups",grp = ex.groups,
-                grp.col = ex.groups.col,grp.sym = 19,grp.cex = 0.8, loadings.sym = "text" ,PC = c(1,2),
-                plot.legend = "groups",leg.position = "bottomright",leg.columns = 1,title = "Groups")
+# plot samples as symbols coloured by groups with uncoloured loadings
+codaSeq.PCAplot(pca.data, plot.groups = TRUE, plot.loadings = TRUE,
+                plot.ellipses = "groups", plot.density = "groups", 
+                grp = group.list, grp.col = group.cols,
+                grp.sym = c(15,16), PC = c(1,2), plot.legend = "groups",
+                leg.xy = c(-70,-32), leg.cex = 0.7, leg.columns = 1,
+                title = "HMP data: keratinised gingiva vs. oral plaque")
 
-# plot samples as text with no colour, loadings as coloured symbols by group,
-# ellipses for loadings groups, density plots for loadings
-codaSeq.PCAplot(pca.data, plot.groups = FALSE, plot.loadings = TRUE, plot.ellipses = "loadings",
-                plot.density = "loadings",loadings.grp = ex.loadings,loadings.col = ex.load.col,loadings.sym = 19,
-                loadings.cex = 0.8,PC = c(1,2),plot.legend = "loadings",leg.position = "bottomright",
-                leg.columns = 5,title = "Loadings")
+# plot loadings as symbols (by genera) with samples as uncoloured text
+codaSeq.PCAplot(pca.data, plot.groups = FALSE, plot.loadings = TRUE,
+                plot.ellipses = NULL, plot.density = "loadings",
+                grp.cex = 0.6, load.grp = genera.to.plot,
+                load.col = otu.cols, load.sym = 19, load.cex = 0.4, 
+                PC = c(1,2), plot.legend = "loadings", leg.columns = 9, 
+                leg.position = "bottom",
+                title = "HMP data: keratinised gingiva vs. oral plaque")
+
+# NOTE: plot device will draw a very 'stretched' legend. Recommended to
+# call `png("example.png",units="in",height=6,width=12,res=400)`, draw
+# the plot, with `codaSeq.PCAplot()`, then call `dev.off()` to save it 
+# as a high-res PNG with a properly drawn legend
 }
 \seealso{
-[prcomp()],[ALDEx2]
+\code{\link[ALDEx2:aldex]{ALDEx2::aldex()}}, \code{\link[=codaSeq.clr]{codaSeq.clr()}}, \code{\link[=prcomp]{prcomp()}}, \code{\link{ak_op}}
+}
+\author{
+Greg Gloor, Jean Macklaim, Andrew Fernandes, Wallace Chan, Scott Dos Santos
 }

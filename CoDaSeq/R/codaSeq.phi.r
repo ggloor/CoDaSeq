@@ -1,3 +1,31 @@
+#' Expected value of Phi from Dirichlet log-ratio distribution
+#'
+#' @param aldex.clr  An `aldex.clr` S3 object, output by `aldex.clr` from the `ALDEx2` package.
+#'
+#' @return Returns expected Phi values for pairwise comparisons between
+#'   all features.
+#'   
+#' @details This function is time- and memory-intensive! Requires the `aldex.clr()` 
+#' function from the `ALDEx2` package. We ignore all the other measures that
+#' are used for trouble-shooting phi.
+#' 
+#' @export
+#'
+#' @author Greg Gloor, Jean Macklaim, Wallace Chan
+#' 
+#' @seealso [codaSeq.clr()], [codaSeq.filter], [codaSeq.rarefy], [codaSeq.outlier]
+#' 
+#' @examples
+#' # load example HMP data from CoDaSeq package
+#' data("ak_op")  # feature table: 4347 OTU x 30 samples (15x ak, 15x op)
+#' 
+#' # CLR using ALDEx2
+#' clr.data <- aldex.clr(ak_op,
+#'                       conds = c(rep("AK",15),rep("OP",15)),
+#'                       denom = "all")
+#' 
+#' # calculate phi
+#' phi<-codaSeq.phi(clr.data)
 codaSeq.phi <- function(aldex.clr){
 
 	# calculate expected value of phi

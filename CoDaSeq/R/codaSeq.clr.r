@@ -2,7 +2,7 @@
 #'
 #' Returns a matrix of center log-ratio transformed data with samples
 #'   by row. Each value is equivalent to log(x/gx) where gx is
-#'   the geometic mean of the row vector X.
+#'   the geometric mean of the row vector X.
 #' @param x A matrix or dataframe with samples by row or column
 #' @param IQLR the geometric mean computed on all features if FALSE,
 #'   or on the set of features with variance between the first and

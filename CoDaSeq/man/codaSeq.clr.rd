@@ -21,12 +21,12 @@ values and is much faster than using aldex.effect}
 }
 \value{
 returns a matrix of clr tranformed values with samples
-  in the rows and variables in columns
+in the rows and variables in columns
 }
 \description{
 Returns a matrix of center log-ratio transformed data with samples
-  by row. Each value is equivalent to log(x/gx) where gx is
-  the geometic mean of the row vector X.
+by row. Each value is equivalent to log(x/gx) where gx is
+the geometric mean of the row vector X.
 }
 \details{
 the natural logarithm is used.

@@ -105,8 +105,8 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
-    grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
+codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
+    grp=grp, plot.ellipses="groups", plot.loadings=TRUE)
 
 label="min.count=100"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.count=10, samples.by.row=FALSE)
@@ -114,8 +114,8 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
-    grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
+codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
+    grp=grp, plot.ellipses="groups", plot.loadings=TRUE)
 
 label="min.prop=0.01"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.01, samples.by.row=FALSE)
@@ -123,8 +123,8 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
-    grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
+codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
+    grp=grp, plot.ellipses="groups", plot.loadings=TRUE)
 
 label="max.prop=0.01"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.001, max.prop=0.01, samples.by.row=FALSE)
@@ -132,8 +132,8 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
-    grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
+codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
+    grp=grp, plot.ellipses="groups", plot.loadings=TRUE)
 
 label="var.filt=TRUE"
 f <- codaSeq.filter(ak_op, min.reads=1000, var.filt=TRUE, samples.by.row=FALSE)
@@ -141,8 +141,8 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
-    grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
+codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
+    grp=grp, plot.ellipses="groups", plot.loadings=TRUE)
 
 label="min.occurrence=0.5"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.occurrence=0.5, samples.by.row=FALSE)
@@ -150,8 +150,8 @@ f.n0 <- cmultRepl(t(f), label=0, method="CZM")
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
-codaSeq.PCAplot(f.pcx, main=label, plot.groups=TRUE, grp.col=rbcol,
-    grp=grp, plot.circles=TRUE, plot.loadings=TRUE)
+codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
+    grp=grp, plot.ellipses="groups", plot.loadings=TRUE)
 
 @
 
@@ -200,7 +200,7 @@ ALDEx2 now incorporates three approaches to deal with asymmetric datasets:
  %%%
 \newpage
 \section{Contributors}
-Andrew Fernandes wrote the original ALDEx code, and designed ALDEx2. Jean Macklaim found and squished a number of bugs, performed  testing, did much of the validation. Matt Links incorporated several ALDEx2 functions into a multicore environment. Adrianne Albert wrote the correlation and the one-way ANOVA modules. Ruth Grace Wong added function definitions and made the parallel code functional with BioConducter. Jia Rong Wu developed and implemented the alternate denominator method to correct for asymmetric datasets. Andrew Fernandes, Jean Macklaim and Ruth Grace Wong contributed to the Sum-FunctionsAitchison.R code. Greg Gloor is currently maintaining ALDEx2 and played roles in design and implementation.
+Andrew Fernandes wrote the original ALDEx code, and designed ALDEx2. Jean Macklaim found and squished a number of bugs, performed  testing, did much of the validation. Matt Links incorporated several ALDEx2 functions into a multicore environment. Adrianne Albert wrote the correlation and the one-way ANOVA modules. Ruth Grace Wong added function definitions and made the parallel code functional with BioConducter. Jia Rong Wu developed and implemented the alternate denominator method to correct for asymmetric datasets. Andrew Fernandes, Jean Macklaim and Ruth Grace Wong contributed to the Sum-FunctionsAitchison.R code. Scott Dos Santos expanded the codaSeq.PCAplot function to allow for more control over the appearance of PCA plots, and provided examples for several CoDaSeq functions. Greg Gloor is currently maintaining ALDEx2 and played roles in design and implementation.
 
 \section{Version information}
 
