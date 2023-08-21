@@ -39,10 +39,17 @@ indices of group members (default: \code{NULL}).}
 the corresponding groups (default: \code{NULL}, automatically set to \code{"black"}
 if \code{plot.groups= TRUE} and \code{grp.col= NULL}).}
 
-\item{grp.sym}{Either a numeric vector the same length as \code{grp} containing
-only numbers 1-25 (corresponding to the \code{pch} argument of many graphical
-functions), or \code{"text"}. Indicates if samples will be plotted as symbols
-or text on the biplot (default: \code{"text"}).}
+\item{grp.sym}{One of the following (default: \code{"text"}):
+\itemize{
+\item A single numeric value (uses the specified value to set the \code{pch}
+argument for all groups).
+\item A vector of numeric values, the same length as \code{grp} (uses the
+specified values to set the  \code{pch} argument on a per-group basis, with
+each element of \code{grp.sym} paired with the corresponding element of
+\code{grp}).
+\item A character vector equal to \code{"text"} (plots samples as text, with the
+label set to \code{rownames(pcx$x)}).
+}}
 
 \item{grp.cex}{A numeric value indicating the relative size of the group
 symbols or text to be plotted (default: \code{1}).}
@@ -55,10 +62,17 @@ colours for the corresponding loading groups (default: \code{NULL},
 automatically set to \code{rgb(0,0,0,0.05)} if \code{plot.loadings= TRUE} and
 \code{load.col= NULL}).}
 
-\item{load.sym}{Either a numeric the same length as \code{load.grp}
-containing only numbers 1-25 (corresponding to the \code{pch} argument of many
-graphical functions), or  \code{"text"}. Indicates if loadings will be plotted
-as symbols or text (default: \code{19}).}
+\item{load.sym}{One of the following (default: \code{19}):
+\itemize{
+\item A single numeric value (uses the specified value to set the \code{pch}
+argument for all groups).
+\item A vector of numeric values, the same length as \code{load.grp} (uses the
+specified values to set the  \code{pch} argument on a per-group basis, with
+each element of \code{load.sym} paired with the corresponding element of
+\code{load.grp}).
+\item A character vector equal to \code{"text"} (plots variable loadings as text,
+with the label set to \code{rownames(pcx$rotation)}).
+}}
 
 \item{load.cex}{A numeric value indicating the relative size of the
 loading symbols or text to be plotted (default: \code{0.5}).}
@@ -133,6 +147,9 @@ otu.cols<-viridis::turbo(27)
 group.list<-list(Gingva=c(1:15), Plaque=c(16:30))
 group.cols<-c("dodgerblue", "orangered")
 
+# make vector of loading symbols (13x triangle, 13x circle, 1x star)
+symbols<-c(rep(17,13),rep(16,13),11)
+
 # Bayesian-multiplicative replacement of count-zeros 
 clr.input<-cmultRepl(t(ak_op),label = "0",
                      method = "CZM",output = "p-counts")
@@ -156,7 +173,7 @@ codaSeq.PCAplot(pca.data, plot.groups = TRUE, plot.loadings = TRUE,
 codaSeq.PCAplot(pca.data, plot.groups = FALSE, plot.loadings = TRUE,
                 plot.ellipses = NULL, plot.density = "loadings",
                 grp.cex = 0.6, load.grp = genera.to.plot,
-                load.col = otu.cols, load.sym = 19, load.cex = 0.4, 
+                load.col = otu.cols, load.sym = symbols, load.cex = 0.4, 
                 PC = c(1,2), plot.legend = "loadings", leg.columns = 9, 
                 leg.position = "bottom",
                 title = "HMP data: keratinised gingiva vs. oral plaque")

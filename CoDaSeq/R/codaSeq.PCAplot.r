@@ -32,10 +32,15 @@
 #' @param grp.col A vector of the same length as `grp` containing colours for
 #'   the corresponding groups (default: `NULL`, automatically set to `"black"`
 #'   if `plot.groups= TRUE` and `grp.col= NULL`).
-#' @param grp.sym Either a numeric vector the same length as `grp` containing
-#'   only numbers 1-25 (corresponding to the `pch` argument of many graphical
-#'   functions), or `"text"`. Indicates if samples will be plotted as symbols
-#'   or text on the biplot (default: `"text"`).
+#' @param grp.sym One of the following (default: `"text"`):
+#'   * A single numeric value (uses the specified value to set the `pch` 
+#'     argument for all groups).
+#'   * A vector of numeric values, the same length as `grp` (uses the
+#'     specified values to set the  `pch` argument on a per-group basis, with
+#'     each element of `grp.sym` paired with the corresponding element of 
+#'     `grp`).
+#'   * A character vector equal to `"text"` (plots samples as text, with the 
+#'     label set to `rownames(pcx$x)`).
 #' @param grp.cex A numeric value indicating the relative size of the group
 #'   symbols or text to be plotted (default: `1`).
 #' @param load.grp A list of loading groups where each element is a vector
@@ -44,10 +49,15 @@
 #'   colours for the corresponding loading groups (default: `NULL`,
 #'   automatically set to `rgb(0,0,0,0.05)` if `plot.loadings= TRUE` and
 #'   `load.col= NULL`).
-#' @param load.sym Either a numeric the same length as `load.grp`
-#'   containing only numbers 1-25 (corresponding to the `pch` argument of many
-#'   graphical functions), or  `"text"`. Indicates if loadings will be plotted
-#'   as symbols or text (default: `19`).
+#' @param load.sym One of the following (default: `19`):
+#'   * A single numeric value (uses the specified value to set the `pch` 
+#'     argument for all groups).
+#'   * A vector of numeric values, the same length as `load.grp` (uses the
+#'     specified values to set the  `pch` argument on a per-group basis, with
+#'     each element of `load.sym` paired with the corresponding element of 
+#'     `load.grp`).
+#'   * A character vector equal to `"text"` (plots variable loadings as text,
+#'     with the label set to `rownames(pcx$rotation)`).
 #' @param load.cex A numeric value indicating the relative size of the
 #'   loading symbols or text to be plotted (default: `0.5`).
 #' @param PC A numeric vector of length = 2 indicating which prinicpal
@@ -131,6 +141,9 @@
 #' group.list<-list(Gingva=c(1:15), Plaque=c(16:30))
 #' group.cols<-c("dodgerblue", "orangered")
 #' 
+#' # make vector of loading symbols (13x triangle, 13x circle, 1x star)
+#' symbols<-c(rep(17,13),rep(16,13),11)
+#' 
 #' # Bayesian-multiplicative replacement of count-zeros 
 #' clr.input<-cmultRepl(t(ak_op),label = "0",
 #'                      method = "CZM",output = "p-counts")
@@ -154,7 +167,7 @@
 #' codaSeq.PCAplot(pca.data, plot.groups = FALSE, plot.loadings = TRUE,
 #'                 plot.ellipses = NULL, plot.density = "loadings",
 #'                 grp.cex = 0.6, load.grp = genera.to.plot,
-#'                 load.col = otu.cols, load.sym = 19, load.cex = 0.4, 
+#'                 load.col = otu.cols, load.sym = symbols, load.cex = 0.4, 
 #'                 PC = c(1,2), plot.legend = "loadings", leg.columns = 9, 
 #'                 leg.position = "bottom",
 #'                 title = "HMP data: keratinised gingiva vs. oral plaque")
@@ -208,8 +221,6 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
         if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
         if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
         if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
-        if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
-        if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
         if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
         scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
         scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
@@ -228,16 +239,14 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
 
       if(!is.null(load.col)){
         if(is.null(load.col)) stop("please provide a vector of loadings colours")
-        if(length(load.col) >1 && is.list(load.grp)==FALSE) stop("multiple loadings colours supplied, but 'load.grp' is not a list")
+        if(length(load.col) >1 && !is.list(load.grp)) stop("multiple loadings colours supplied, but 'load.grp' is not a list")
         if(length(load.col) >1 && length(load.col) != length(load.grp)) stop("number of loadings groups and number of loading colours must match")
         if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
-        if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
-        if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
+        if(is.numeric(load.sym) && !all(load.sym  %in% seq(0,25,1))) stop("'load.sym' must be numeric with value(s) between 0 and 25")
         if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
-
-        if(is.numeric(load.sym)){
-          load.sym <- rep(load.sym, length(load.col))
-        }
+        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
+        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        
         if(is.null(load.grp)){
           load.grp=list(c(1:nrow(pcx$rotation)))
         }
@@ -245,9 +254,12 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
 
         scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
         scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
-        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
-        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        
         if(is.numeric(load.sym)){
+          if(length(load.sym)==1){
+            load.sym<-rep(load.sym,length(load.grp))
+          }
+          if(length(load.sym) >1 && length(load.sym) != length(load.grp)) stop("number of loading symbols and number of loading groups must match (and must correspond)")
           for(j in 1:length(load.grp)){
             points(pcx$rotation[,PC[1]][load.grp[[j]]]*scale.factor.1,
                    pcx$rotation[,PC[2]][load.grp[[j]]]*scale.factor.2,
@@ -325,6 +337,7 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
       if(!is.character(grp.sym) && !is.numeric(grp.sym)) stop("'grp.sym' must either be numeric or a character vector equal to 'text'")
       if(is.character(grp.sym) && grp.sym!="text") stop("to plot samples as text, 'grp.sym' must be a character vector equal to 'text'")
       if(is.character(grp.sym) && length(grp.sym)!=1) stop("to plot samples as text, 'grp.sym' must be a character vector of length = 1, equal to 'text'")
+      
       if(is.character(grp.sym)){
         for(i in 1:length(grp)){
           text(pcx$x[grp[[i]],PC[1]],pcx$x[grp[[i]],PC[2]],
@@ -481,14 +494,16 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
     if(plot.loadings==TRUE){
       if(is.null(load.col)){
         if(!is.null(plot.legend) && plot.legend=="loadings") warning("no loadings colours specified: will not plot legend for loadings")
-        scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
-        scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
         if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
         if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
         if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
         if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
         if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
         if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
+        
+        scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
+        scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
+        
         if(is.numeric(load.sym)){
           points(pcx$rotation[,PC[1]]*scale.factor.1, pcx$rotation[,PC[2]]*scale.factor.2, pch=load.sym,
                  col=rgb(0,0,0,0.05), cex=load.cex)
@@ -502,17 +517,14 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
 
       if(!is.null(load.col)){
         if(is.null(load.col)) stop("please provide a vector of loadings colours")
-        if(length(load.col) >1 && is.list(load.grp)==FALSE) stop("multiple loadings colours supplied, but 'load.grp' is not a list")
+        if(length(load.col) >1 && !is.list(load.grp)) stop("multiple loadings colours supplied, but 'load.grp' is not a list")
         if(length(load.col) >1 && length(load.col) != length(load.grp)) stop("number of loadings groups and number of colours must match")
-
         if(!is.numeric(load.sym) && !is.character(load.sym)) stop("'load.sym' must be either numeric or a character vector equal to 'text'")
-        if(is.numeric(load.sym) && length(load.sym)!=1) stop("'load.sym' must be a single numeric value")
-        if(is.numeric(load.sym) && !load.sym  %in% seq(0,25,1)) stop("'load.sym' must be a numeric value between 0 and 25")
+        if(is.numeric(load.sym) && !all(load.sym  %in% seq(0,25,1))) stop("'load.sym' must be numeric with value(s) between 0 and 25")
         if(is.character(load.sym) && length(load.sym)!=1 && load.sym!="text") stop("to plot loading labels as text, 'loadings,sym' must be a character vector of length = 1, equal to 'text'")
-
-        if(is.numeric(load.sym)){
-          load.sym <- rep(load.sym, length(load.col))
-        }
+        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
+        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        
         if(is.null(load.grp)){
           load.grp=list(c(1:nrow(pcx$rotation)))
         }
@@ -520,9 +532,12 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
 
         scale.factor.1 <- max(abs(pcx$x[,PC[1]]))/max(abs(pcx$rotation[,PC[1]]))
         scale.factor.2 <- max(abs(pcx$x[,PC[2]]))/max(abs(pcx$rotation[,PC[2]]))
-        if(!is.numeric(load.cex)) stop("'load.cex' must be numeric")
-        if(length(load.cex)!=1) stop("'load.cex' must be a single numeric value")
+        
         if(is.numeric(load.sym)){
+          if(length(load.sym)==1){
+            load.sym<-rep(load.sym,length(load.grp))
+          }
+          if(length(load.sym) >1 && length(load.sym) != length(load.grp)) stop("number of loading symbols and number of loading groups must match (and must correspond)")
           for(j in 1:length(load.grp)){
             points(pcx$rotation[,PC[1]][load.grp[[j]]]*scale.factor.1,
                    pcx$rotation[,PC[2]][load.grp[[j]]]*scale.factor.2,
