@@ -1,0 +1,81 @@
+#' Convert `prcomp` variable loadings to principal component values
+#'
+#' Convert the variable loadings found in the `rotation` data frame (i.e. a matrix whose
+#' columns contain eigenvectors) into principal component values which can be plotted on 
+#' a biplot produced by `CoDaSeq::codaSeq.PCAplot()`. Useful for drawing attention to
+#'  individual loadings using `points()` or `text()`.
+#'
+#' @param pcx   An object An object produced by `prcomp()`. The input to `prcomp()` must have
+#'   samples in rows and features in columns.
+#'   
+#' @return Returns a data frame of the same dimensions as `pcx$rotation`, the columns of
+#'   which contain the rotation values multiplied by a scale factor (calculated for each
+#'   column). Scale factors are calculated (per-column) for the i'th column by:
+#'   
+#'   `max(abs(pcx$x[,i])) / max(abs(pcx$rotation[,i]))`
+#' 
+#' @export
+#' 
+#' @author Scott Dos Santos
+#' 
+#' @seealso [prcomp()], [codaSeq.PCAplot]
+#'
+#' @examples
+#' # load example HMP data from CoDaSeq package
+#' data("ak_op")      # feature table: 4347 OTU x 30 samples (15x ak, 15x op)
+#' 
+#' # Bayesian-multiplicative replacement of count-zeros 
+#' clr.input<-cmultRepl(t(ak_op),label = "0",
+#'                      method = "CZM",output = "p-counts")
+#' 
+#' # CLR-transformation using codaSeq.clr
+#' clr.data<-codaSeq.clr(t(clr.input), IQLR = FALSE,
+#'                       aitch = FALSE, samples.by.row = TRUE)
+#'                       
+#' # make list of group indices (samples already order in data frame)
+#' group.list<-list(Gingva=c(1:15), Plaque=c(16:30))
+#' group.cols<-c("dodgerblue", "orangered")
+#' 
+#' # perform PCA
+#' pca.data<-prcomp(t(clr.data))
+#' 
+#' # get plottable PC values and subset for PC1 & PC2 for two loadings
+#' # of interest (to be highlighted on plot)
+#' pca.vals<-codaSeq.PCAvalues(pca.data)
+#' to.highlight<-pca.vals[c("39250","38849"),c(1,2)]
+#' 
+#' # plot samples as symbols coloured by groups with uncoloured loadings
+#' codaSeq.PCAplot(pca.data, plot.groups = TRUE, plot.loadings = TRUE,
+#'                 plot.ellipses = "groups", plot.density = NULL, 
+#'                 grp = group.list, grp.col = group.cols,
+#'                 grp.sym = c(15,16), PC = c(1,2), plot.legend = "groups",
+#'                 leg.xy = c(-70,-32), leg.cex = 0.7, leg.columns = 1,
+#'                 title = "HMP data: keratinised gingiva vs. oral plaque")
+#'
+#' # add larger circles around two particular loadings of 'interest'
+#' points(to.highlight[,1],
+#'        to.highlight[,2],
+#'        col = "purple3", cex = 2)
+codaSeq.PCAvalues<-function(pcx){
+  if((attributes(pcx)$class == "prcomp") == FALSE) stop("please use the prcomp() function for the SVD")
+  
+  no.cols<-as.numeric(ncol(pcx$rotation))
+  
+  for(i in 1:no.cols){
+    scale.factor<- max(abs(pcx$x[,i]))/max(abs(pcx$rotation[,i]))
+    assign(paste0("scale.factor.PC", i), scale.factor)
+  }
+  
+  for(j in 1:no.cols){
+    pca.values<-pcx$rotation[,j]*eval(parse(text = paste0("scale.factor.PC",j)))
+    assign(paste0("pca.val.PC",j),pca.values)
+  }
+  
+  all.pca.values<-list()
+  for (k in 1:no.cols) {
+    all.pca.values[[paste0("PC",k)]] <-eval(parse(text = paste0("pca.val.PC",k)))
+  }
+  
+  all.pca.values.df<-do.call(rbind,all.pca.values)
+  return(as.data.frame(t(all.pca.values.df)))
+}
