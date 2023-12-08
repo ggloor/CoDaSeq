@@ -74,7 +74,7 @@ We now replace 0 counts in the dataset with imputed values using the Count Zero 
 # from the zCompositions package
 # the table is transposed t() to make the samples by row
 # all further analyses have this orientation
-f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+f.n0 <- cmultRepl(t(f), label=0, method="CZM", z.warning = 0.99)
 
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
@@ -101,7 +101,7 @@ par(mfrow=c(3,4))
 
 label="ALL"
 f <- codaSeq.filter(ak_op, min.reads=1000, samples.by.row=FALSE, min.count=1)
-f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+f.n0 <- cmultRepl(t(f), label=0, method="CZM", z.warning = 0.99)
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
@@ -110,7 +110,7 @@ codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
 
 label="min.count=100"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.count=10, samples.by.row=FALSE)
-f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+f.n0 <- cmultRepl(t(f), label=0, method="CZM", z.warning = 0.99)
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
@@ -119,7 +119,7 @@ codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
 
 label="min.prop=0.01"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.01, samples.by.row=FALSE)
-f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+f.n0 <- cmultRepl(t(f), label=0, method="CZM", z.warning = 0.99)
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
@@ -128,7 +128,7 @@ codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
 
 label="max.prop=0.01"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.prop=0.001, max.prop=0.01, samples.by.row=FALSE)
-f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+f.n0 <- cmultRepl(t(f), label=0, method="CZM", z.warning = 0.99)
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
@@ -137,7 +137,7 @@ codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
 
 label="var.filt=TRUE"
 f <- codaSeq.filter(ak_op, min.reads=1000, var.filt=TRUE, samples.by.row=FALSE)
-f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+f.n0 <- cmultRepl(t(f), label=0, method="CZM", z.warning = 0.99)
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)
@@ -146,7 +146,7 @@ codaSeq.PCAplot(f.pcx, title=label, plot.groups=TRUE, grp.col=rbcol,
 
 label="min.occurrence=0.5"
 f <- codaSeq.filter(ak_op, min.reads=1000, min.occurrence=0.5, samples.by.row=FALSE)
-f.n0 <- cmultRepl(t(f), label=0, method="CZM")
+f.n0 <- cmultRepl(t(f), label=0, method="CZM", z.warning = 0.99)
 # perform the centered log-ratio transformation
 f.clr <- codaSeq.clr(f.n0, samples.by.row=TRUE)
 f.pcx <- prcomp(f.clr)

@@ -23,10 +23,10 @@
 #'   `load.sym` (default: `TRUE`).
 #' @param plot.ellipses Character vector indicating whether or not to draw
 #'   confidence ellipses around sample *or* loading groups. Must be one of either
-#'   `"groups"` or `"loadings"`, or `NULL`.
+#'   `"groups"` or `"loadings"`, or `NULL` (default: `NULL`).
 #' @param plot.density Logical value indicating whether or not to draw density
 #'   plots for the specified principal components above and beside the main
-#'   biplot.
+#'   biplot (default: `NULL`).
 #' @param grp A list of groups where each element is a vector containing the
 #'   indices of group members (default: `NULL`).
 #' @param grp.col A vector of the same length as `grp` containing colours for
@@ -40,7 +40,7 @@
 #'     each element of `grp.sym` paired with the corresponding element of 
 #'     `grp`).
 #'   * A character vector equal to `"text"` (plots samples as text, with the 
-#'     label set to `rownames(pcx$x)`).
+#'     labels set to `rownames(pcx$x)`).
 #' @param grp.cex A numeric value indicating the relative size of the group
 #'   symbols or text to be plotted (default: `1`).
 #' @param load.grp A list of loading groups where each element is a vector
@@ -57,26 +57,29 @@
 #'     each element of `load.sym` paired with the corresponding element of 
 #'     `load.grp`).
 #'   * A character vector equal to `"text"` (plots variable loadings as text,
-#'     with the label set to `rownames(pcx$rotation)`).
+#'     with the labels set to `rownames(pcx$rotation)`).
 #' @param load.cex A numeric value indicating the relative size of the
 #'   loading symbols or text to be plotted (default: `0.5`).
 #' @param PC A numeric vector of length = 2 indicating which prinicpal
 #'   components should be plotted (default: `c(1,2)`)
 #' @param plot.legend A character string equal to either `"groups"` or
 #'   `"loadings"`, or NULL, indicating whether to draw a legend for groups,
-#'   loadings or neither (default: `NULL`).
-#' @param leg.position A character string equal to one of the following:
-#'   `"topleft"`, `"top"`, `"topright"`, `"right"`, `"bottomright"`, `"bottom"`,
-#'   `"bottomleft"`, `"left"`, or `"center"`. Cannot be called in conjunction
-#'   with `leg.xy` (default: `NULL`).
+#'   loadings or neither (default: `NULL`). If you wish to draw legends for
+#'   both groups and loadings, you can call `legend()` immediately after
+#'   `codaSeq.PCAplot()`, adjusting the `x` and `y` arguments manually
+#'    (start at zero and play around with the numbers).
+#' @param leg.position A character vector indicating legend position presets,
+#'   equal to one of the following: `"topleft"`, `"top"`, `"topright"`, 
+#'   `"right"`, `"bottomright"`, `"bottom"`, `"bottomleft"`, `"left"`, or 
+#'   `"center"`. Cannot be called alongside with `leg.xy` (default: `NULL`).
 #' @param leg.xy A numeric vector of length = 2, specifying the x and y
 #'   coordinates at which to draw the top-right corner of the legend box. Cannot
-#'   be called in conjunctionn with `leg.position` (default: `NULL`)
+#'   be called in conjunction with `leg.position` (default: `NULL`).
 #' @param leg.cex A numeric value indicating the relative size of the legend
 #'   text (default: `0.55`).
 #' @param leg.columns A numeric calue indicating the number of columns to split
 #'   legend items into (default: `1`)
-#' @param title A character string containing the desired title of the biplot
+#' @param title A character vector containing the desired title of the biplot
 #'   (default: `""`).
 #'
 #' @return Returns a plot showing samples and/or loadings as specified by the
@@ -146,7 +149,7 @@
 #' 
 #' # Bayesian-multiplicative replacement of count-zeros 
 #' clr.input<-cmultRepl(t(ak_op),label = "0",
-#'                      method = "CZM",output = "p-counts")
+#'                      method = "CZM",, z.warning = 0.99)
 #' 
 #' # CLR-transformation using codaSeq.clr
 #' clr.data<-codaSeq.clr(t(clr.input), IQLR = FALSE,
@@ -388,8 +391,8 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
     if(plot.density=="groups"){
       list.group<-list()
       for(k in 1:length(grp)){
-        points.pc1<-pcx$x[,1][grp[[k]]]
-        points.pc2<-pcx$x[,2][grp[[k]]]
+        points.pc1<-pcx$x[,PC[1]][grp[[k]]]
+        points.pc2<-pcx$x[,PC[2]][grp[[k]]]
         list.group[[names(grp)[k]]]<-as.data.frame(cbind(points.pc1,points.pc2))
       }
 
@@ -433,8 +436,8 @@ codaSeq.PCAplot <- function(pcx, plot.groups=FALSE, plot.loadings=TRUE, plot.ell
     } else if(plot.density=="loadings"){
       list.loadings<-list()
       for (k in 1:length(load.grp)) {
-        points.pc1<-pcx$rotation[,1][load.grp[[k]]]*scale.factor.1
-        points.pc2<-pcx$rotation[,2][load.grp[[k]]]*scale.factor.2
+        points.pc1<-pcx$rotation[,PC[1]][load.grp[[k]]]*scale.factor.1
+        points.pc2<-pcx$rotation[,PC[2]][load.grp[[k]]]*scale.factor.2
         list.loadings[[names(load.grp)[k]]]<-as.data.frame(cbind(points.pc1,points.pc2))
       }
 
