@@ -26,11 +26,11 @@ depending on \code{grp.sym} (default: \code{FALSE}).}
 
 \item{plot.ellipses}{Character vector indicating whether or not to draw
 confidence ellipses around sample \emph{or} loading groups. Must be one of either
-\code{"groups"} or \code{"loadings"}, or \code{NULL}.}
+\code{"groups"} or \code{"loadings"}, or \code{NULL} (default: \code{NULL}).}
 
 \item{plot.density}{Logical value indicating whether or not to draw density
 plots for the specified principal components above and beside the main
-biplot.}
+biplot (default: \code{NULL}).}
 
 \item{grp}{A list of groups where each element is a vector containing the
 indices of group members (default: \code{NULL}).}
@@ -48,7 +48,7 @@ specified values to set the  \code{pch} argument on a per-group basis, with
 each element of \code{grp.sym} paired with the corresponding element of
 \code{grp}).
 \item A character vector equal to \code{"text"} (plots samples as text, with the
-label set to \code{rownames(pcx$x)}).
+labels set to \code{rownames(pcx$x)}).
 }}
 
 \item{grp.cex}{A numeric value indicating the relative size of the group
@@ -71,7 +71,7 @@ specified values to set the  \code{pch} argument on a per-group basis, with
 each element of \code{load.sym} paired with the corresponding element of
 \code{load.grp}).
 \item A character vector equal to \code{"text"} (plots variable loadings as text,
-with the label set to \code{rownames(pcx$rotation)}).
+with the labels set to \code{rownames(pcx$rotation)}).
 }}
 
 \item{load.cex}{A numeric value indicating the relative size of the
@@ -82,16 +82,19 @@ components should be plotted (default: \code{c(1,2)})}
 
 \item{plot.legend}{A character string equal to either \code{"groups"} or
 \code{"loadings"}, or NULL, indicating whether to draw a legend for groups,
-loadings or neither (default: \code{NULL}).}
+loadings or neither (default: \code{NULL}). If you wish to draw legends for
+both groups and loadings, you can call \code{legend()} immediately after
+\code{codaSeq.PCAplot()}, adjusting the \code{x} and \code{y} arguments manually
+(start at zero and play around with the numbers).}
 
-\item{leg.position}{A character string equal to one of the following:
-\code{"topleft"}, \code{"top"}, \code{"topright"}, \code{"right"}, \code{"bottomright"}, \code{"bottom"},
-\code{"bottomleft"}, \code{"left"}, or \code{"center"}. Cannot be called in conjunction
-with \code{leg.xy} (default: \code{NULL}).}
+\item{leg.position}{A character vector indicating legend position presets,
+equal to one of the following: \code{"topleft"}, \code{"top"}, \code{"topright"},
+\code{"right"}, \code{"bottomright"}, \code{"bottom"}, \code{"bottomleft"}, \code{"left"}, or
+\code{"center"}. Cannot be called alongside with \code{leg.xy} (default: \code{NULL}).}
 
 \item{leg.xy}{A numeric vector of length = 2, specifying the x and y
 coordinates at which to draw the top-right corner of the legend box. Cannot
-be called in conjunctionn with \code{leg.position} (default: \code{NULL})}
+be called in conjunction with \code{leg.position} (default: \code{NULL}).}
 
 \item{leg.cex}{A numeric value indicating the relative size of the legend
 text (default: \code{0.55}).}
@@ -99,7 +102,7 @@ text (default: \code{0.55}).}
 \item{leg.columns}{A numeric calue indicating the number of columns to split
 legend items into (default: \code{1})}
 
-\item{title}{A character string containing the desired title of the biplot
+\item{title}{A character vector containing the desired title of the biplot
 (default: \code{""}).}
 }
 \value{
@@ -152,7 +155,7 @@ symbols<-c(rep(17,13),rep(16,13),11)
 
 # Bayesian-multiplicative replacement of count-zeros 
 clr.input<-cmultRepl(t(ak_op),label = "0",
-                     method = "CZM",output = "p-counts")
+                     method = "CZM",, z.warning = 0.99)
 
 # CLR-transformation using codaSeq.clr
 clr.data<-codaSeq.clr(t(clr.input), IQLR = FALSE,
